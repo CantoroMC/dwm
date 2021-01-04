@@ -69,9 +69,11 @@ static const Rule rules[] = {
 
 
 // Layouts
-static const float mfact      = 0.5;  /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const int resizehints  = 0;    /* 1 means respect size hints in tiled resizals */
+static const float mfact         = 0.5;  /* factor of master area size [0.05..0.95] */
+static const int nmaster         = 1;    /* number of clients in master area */
+static const unsigned int minwsz = 20;   /* Minimal heigt of a client for smfact */
+static const float smfact        = 0.20; /* factor of tiled clients [0.00..0.95] */
+static const int resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
@@ -121,6 +123,9 @@ static Key keys[] = {
 	// Focus previous/next client
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	// Resize slave clients
+	{ MODKEY|ShiftMask,             XK_l,      setsmfact,      {.f = 1.05} },
+	{ MODKEY|ShiftMask,             XK_h,      setsmfact,      {.f = +0.05} },
 	// Resize Master fraction
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
