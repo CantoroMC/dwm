@@ -154,9 +154,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
 
 	{ MODKEY,                       XK_bracketleft,  shiftview,      { .i = -1 } },
-	{ MODKEY,                       XK_bracketright, shiftview,      { .i = 1 } },
+	{ MODKEY,                       XK_bracketright, shiftview,      { .i = +1 } },
 	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
-	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = 1 } },
+	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = +1 } },
 
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Delete, quit,           {0} },
@@ -185,19 +185,20 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
-	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = 1} },
+	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
+	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 };
 
 // vim:nospell
