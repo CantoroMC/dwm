@@ -124,6 +124,8 @@ static Key keys[] = {
 	// Resize Master fraction
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	// focus the master client
+	{ MODKEY,                       XK_m,      focusmaster,    {0} },
 	// toggle between master and stack
 	{ MODKEY|ShiftMask,             XK_m,      zoom,           {0} },
 	// Menu launchers
