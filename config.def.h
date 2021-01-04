@@ -210,4 +210,4 @@ static Button buttons[] = {
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 };
 
-// vim:nospell
+// vim:ft=c:nospell
