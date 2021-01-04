@@ -144,6 +144,7 @@ static Key keys[] = {
 
 	// Master/Stack Vertical Layout
 	{ MODKEY,                       XK_Tab,          setlayout,      {.v = &layouts[0]} },
+	{ MODKEY|ShiftMask,             XK_Tab,          resetlayout,    {0} },
 	// Floating Layout
 	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[1]} },
 	// Monocle Layout
