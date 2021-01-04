@@ -77,9 +77,10 @@ static const int resizehints     = 0;    /* 1 means respect size hints in tiled 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
-	{ ">>=",      NULL },
-	{ "[M]",      monocle },
 	{ "TTT",      bstack },
+	{ ">>=",      NULL },
+	{ "|||",      tcl },
+	{ "[M]",      monocle },
 	{ NULL,       NULL },
 };
 
@@ -146,13 +147,12 @@ static Key keys[] = {
 	/*                              Surrounding Keys                                     */
 
 	// Master/Stack Vertical Layout
-	// { MODKEY,                       XK_Tab,          setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_Tab,          cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,          cyclelayout,    {.i = -1 } },
 	// Floating Layout
-	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[2]} },
 	// Monocle Layout
-	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[4]} },
 	// Decrease/Increase Number of masters
 	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
@@ -196,7 +196,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
 	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[4]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
