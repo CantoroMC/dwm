@@ -79,6 +79,8 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },
 	{ ">>=",      NULL },
 	{ "[M]",      monocle },
+	{ "TTT",      bstack },
+	{ NULL,       NULL },
 };
 
 
@@ -105,6 +107,7 @@ static Key keys[] = {
 
 	/*                              Left Side                           */
 
+	{ MODKEY,                       XK_q,            resetlayout,    {0} },
 	{ MODKEY|ShiftMask,             XK_q,            killclient,     {0} },
 	// Monitors: shift and move to previous/next
 	{ MODKEY,                       XK_w,            focusmon,       {.i = -1 } },
@@ -143,8 +146,9 @@ static Key keys[] = {
 	/*                              Surrounding Keys                                     */
 
 	// Master/Stack Vertical Layout
-	{ MODKEY,                       XK_Tab,          setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_Tab,          resetlayout,    {0} },
+	// { MODKEY,                       XK_Tab,          setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_Tab,          cyclelayout,    {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,          cyclelayout,    {.i = -1 } },
 	// Floating Layout
 	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[1]} },
 	// Monocle Layout
