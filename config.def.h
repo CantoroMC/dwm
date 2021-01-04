@@ -123,6 +123,9 @@ static Key keys[] = {
 	// Focus previous/next client
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	// Move the focused client forward/backward in the stack
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	// Resize slave clients
 	{ MODKEY|ShiftMask,             XK_l,      setsmfact,      {.f = 1.05} },
 	{ MODKEY|ShiftMask,             XK_h,      setsmfact,      {.f = +0.05} },
