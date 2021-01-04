@@ -89,6 +89,7 @@ static const Layout layouts[] = {
 
 
 // Key Definitions
+static const char *layoutmenu_cmd = "xmenu_dwmlayout";
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *termcmd[]  = { "st", NULL };
@@ -199,7 +200,8 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
 	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[5]} },
+	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[5]} },
+	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
