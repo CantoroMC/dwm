@@ -79,6 +79,7 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },
 	{ "TTT",      bstack },
 	{ ">>=",      NULL },
+	{ "|+|",      tatami },
 	{ "|||",      tcl },
 	{ "[M]",      monocle },
 	{ NULL,       NULL },
@@ -152,7 +153,7 @@ static Key keys[] = {
 	// Floating Layout
 	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[2]} },
 	// Monocle Layout
-	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[5]} },
 	// Decrease/Increase Number of masters
 	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
@@ -196,7 +197,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
 	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[4]} },
+	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[5]} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
