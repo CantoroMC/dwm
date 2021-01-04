@@ -105,56 +105,62 @@ static Key keys[] = {
 
 	/*                              Left Side                           */
 
-	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_q,            killclient,     {0} },
 	// Monitors: shift and move to previous/next
-	{ MODKEY,                       XK_w,      focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_e,      focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_w,      tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_e,      tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_w,            focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_e,            focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_w,            tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_e,            tagmon,         {.i = +1 } },
 	// Go to previous tag/layout
-	{ MODKEY,                       XK_r,      view,           {0} },
-	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {0} },
-	{ MODKEY,                       XK_t,      togglefloating, {0} },
-	{ MODKEY,                       XK_f,      spawn,          {.v = browsercmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_r,            view,           {0} },
+	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
+	{ MODKEY,                       XK_t,            togglefloating, {0} },
+	{ MODKEY,                       XK_f,            spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
-	/*                              Right Side                          */
+	/*                              Right Side                                           */
 
 	// Focus previous/next client
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,            focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_j,            focusstack,     {.i = +1 } },
 	// Move the focused client forward/backward in the stack
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,            movestack,      {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,            movestack,      {.i = +1 } },
 	// Resize slave clients
-	{ MODKEY|ShiftMask,             XK_l,      setsmfact,      {.f = 1.05} },
-	{ MODKEY|ShiftMask,             XK_h,      setsmfact,      {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_l,            setsmfact,      {.f = 1.05} },
+	{ MODKEY|ShiftMask,             XK_h,            setsmfact,      {.f = +0.05} },
 	// Resize Master fraction
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,            setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,            setmfact,       {.f = +0.05} },
 	// focus the master client
-	{ MODKEY,                       XK_m,      focusmaster,    {0} },
+	{ MODKEY,                       XK_m,            focusmaster,    {0} },
 	// toggle between master and stack
-	{ MODKEY|ShiftMask,             XK_m,      zoom,           {0} },
+	{ MODKEY|ShiftMask,             XK_m,            zoom,           {0} },
 	// Menu launchers
-	{ MODKEY,                       XK_u,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_u,      spawn,          {.v = roficmd } },
+	{ MODKEY,                       XK_u,            spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_u,            spawn,          {.v = roficmd } },
 
-	/*                              Surrounding Keys                    */
+	/*                              Surrounding Keys                                     */
 
 	// Master/Stack Vertical Layout
-	{ MODKEY,                       XK_Tab,    setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_Tab,          setlayout,      {.v = &layouts[0]} },
 	// Floating Layout
-	{ MODKEY,                       XK_space,  setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[1]} },
 	// Monocle Layout
-	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[2]} },
 	// Decrease/Increase Number of masters
-	{ MODKEY,                       XK_period, incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_comma,  incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
+
+	{ MODKEY,                       XK_bracketleft,  shiftview,      { .i = -1 } },
+	{ MODKEY,                       XK_bracketright, shiftview,      { .i = 1 } },
+	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = 1 } },
+
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Delete, quit,           {0} },
 
-	/*                              Numbers                             */
+	/*                              Numbers                                              */
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -168,7 +174,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 
-	/*                              Fn and Extra Keys                   */
+	/*                              Fn and Extra Keys                                    */
 
 };
 
@@ -189,6 +195,8 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
+	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = 1} },
 };
 
 // vim:nospell
