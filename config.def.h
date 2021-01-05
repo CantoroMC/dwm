@@ -174,9 +174,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Tab,          cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,          cyclelayout,    {.i = -1 } },
 	// Floating Layout
-	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[3]} },
 	// Monocle Layout
-	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[6]} },
 	// Decrease/Increase Number of masters
 	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
@@ -221,7 +221,7 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button4,        shiftview,      {.i = -1} },
 	{ ClkTagBar,            0,              Button5,        shiftview,      {.i = +1} },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[5]} },
+	{ ClkLtSymbol,          0,              Button2,        setlayout,      {.v = &layouts[6]} },
 	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
