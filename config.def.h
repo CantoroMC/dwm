@@ -91,6 +91,7 @@ static const int resizehints     = 0;    /* 1 means respect size hints in tiled 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },
+	{ "[D]",      deck },
 	{ "TTT",      bstack },
 	{ ">>=",      NULL },
 	{ "|+|",      tatami },

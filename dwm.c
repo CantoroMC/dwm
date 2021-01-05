@@ -203,6 +203,7 @@ static void configurenotify(XEvent *e);
 static void configurerequest(XEvent *e);
 static Monitor *createmon(void);
 static void cyclelayout(const Arg *arg);
+static void deck(Monitor *m);
 static void destroynotify(XEvent *e);
 static void detach(Client *c);
 static void detachstack(Client *c);
@@ -868,7 +869,8 @@ createmon(void)
 }
 
 void
-cyclelayout(const Arg *arg) {
+cyclelayout(const Arg *arg)
+{
 	Layout *l;
 	for(l = (Layout *)layouts; l != selmon->lt[selmon->sellt]; l++);
 	if(arg->i > 0) {
@@ -882,6 +884,33 @@ cyclelayout(const Arg *arg) {
 		else
 			setlayout(&((Arg) { .v = &layouts[LENGTH(layouts) - 2] }));
 	}
+}
+
+void
+deck(Monitor *m) {
+	unsigned int i, n, h, mw, my, ns;
+	Client *c;
+
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	if (n > m->nmaster) {
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		ns = m->nmaster > 0 ? 2 : 1;
+		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n - m->nmaster);
+	} else {
+		mw = m->ww;
+		ns = 1;
+	}
+	for (i = 0, my = m->gap->gappx, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+		if (i < m->nmaster) {
+			h = (m->wh - my) / (MIN(n, m->nmaster) - i) - m->gap->gappx;
+			resize(c, m->wx + m->gap->gappx, m->wy + my, mw - (2*c->bw) - m->gap->gappx*(5-ns)/2, h - (2*c->bw), False);
+			my += HEIGHT(c) + m->gap->gappx;
+		}
+		else
+			resize(c, m->wx + mw + m->gap->gappx/ns, m->wy + m->gap->gappx, m->ww - mw - (2*c->bw) - m->gap->gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*m->gap->gappx, False);
 }
 
 void
