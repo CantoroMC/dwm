@@ -1,13 +1,21 @@
 // Appearance
-static const unsigned int borderpx       = 1;        /* border pixel of windows */
-static const unsigned int snap           = 24;       /* snap pixel */
-static const int showbar                 = 1;        /* 0 means no bar */
-static const int topbar                  = 1;        /* 0 means bottom bar */
+static const unsigned int borderpx       = 1;            /* border pixel of windows */
+static const unsigned int snap           = 24;           /* snap pixel */
+static const int showbar                 = 1;            /* 0 means no bar */
+static const int topbar                  = 1;            /* 0 means bottom bar */
 static const char buttonbar[]            = "<O>";
-static const unsigned int systraypinning = 0;        /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayspacing = 2;        /* systray spacing */
-static const int systraypinningfailfirst = 1;        /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray             = 1;        /* 0 means no systray */
+static const unsigned int systraypinning = 0;            /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayspacing = 2;            /* systray spacing */
+// 1: if pinning fails, display systray on the first monitor,
+//    False: display systray on the last monitor
+static const int systraypinningfailfirst = 1;
+static const int showsystray             = 1;            /* 0 means no systray */
+// Display modes of the tab bar:
+//   never shown, always shown, shown only in monocle mode in presence of several windows.
+// Modes after showtab_nmodes are disabled
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+static const int showtab                 = showtab_auto; /* Default tab bar show mode */
+static const Bool toptab                 = True;        /* False means bottom tab bar */
 static const char *fonts[]               = {
 	"Operator Mono Book:size=12.0"
 };
@@ -26,6 +34,10 @@ static const char *colors[][3]           = {
 
 // Tagging and Rules
 static const char *tags[] = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι" };
+// default layout per tags
+// The first element is for all-tag view, following i-th element corresponds to tags[i].
+// Layout is referred using the layouts array index.
+static int def_layouts[1 + LENGTH(tags)]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 static const Rule rules[] = {
 	/* class                    instance     title             tags mask  isfloating  monitor */
 	{ "Arandr",                   NULL,       NULL,               0,       1,          -1 },
@@ -122,6 +134,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_r,            view,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 	{ MODKEY,                       XK_f,            spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
@@ -208,6 +221,7 @@ static Button buttons[] = {
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
 };
 
 // vim:ft=c:nospell
