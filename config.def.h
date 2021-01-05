@@ -186,8 +186,17 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
 	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = +1 } },
 
-	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Delete, quit,           {0} },
+	{ MODKEY,                       XK_Return,       spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Delete,       quit,           {0} },
+
+	{ MODKEY,                       XK_Down,         moveresize,     {.v = "0x 25y 0w 0h" } },
+	{ MODKEY,                       XK_Up,           moveresize,     {.v = "0x -25y 0w 0h" } },
+	{ MODKEY,                       XK_Right,        moveresize,     {.v = "25x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,         moveresize,     {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,         moveresize,     {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|ShiftMask,             XK_Up,           moveresize,     {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|ShiftMask,             XK_Right,        moveresize,     {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,         moveresize,     {.v = "0x 0y -25w 0h" } },
 
 	/*                              Numbers                                              */
 
