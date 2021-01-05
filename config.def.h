@@ -1,6 +1,7 @@
 // Appearance
 static const unsigned int borderpx       = 1;            /* border pixel of windows */
 static const unsigned int snap           = 24;           /* snap pixel */
+static const Gap default_gap             = {.isgap = 1, .realgap = 0, .gappx = 0};
 static const int showbar                 = 1;            /* 0 means no bar */
 static const int topbar                  = 1;            /* 0 means bottom bar */
 static const char buttonbar[]            = "<O>";
@@ -135,6 +136,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
+
+	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
+	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
+	{ MODKEY|ControlMask,           XK_s,            setgaps,        {.i = GAP_RESET } },
+	{ MODKEY|ShiftMask|ControlMask, XK_s,            setgaps,        {.i = GAP_TOGGLE} },
+
 	{ MODKEY,                       XK_f,            spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
