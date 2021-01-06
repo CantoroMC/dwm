@@ -84,11 +84,11 @@ static const Rule rules[] = {
 
 
 // Layouts
-static const int focusonwheel   = 0;
+static const int focusonwheel    = 0;
 static const float mfact         = 0.5;  /* factor of master area size [0.05..0.95] */
+static const float smfact        = 0.00; /* factor of tiled clients [0.00..0.95] */
 static const int nmaster         = 1;    /* number of clients in master area */
 static const unsigned int minwsz = 20;   /* Minimal heigt of a client for smfact */
-static const float smfact        = 0.00; /* factor of tiled clients [0.00..0.95] */
 static const int resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -149,7 +149,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, XK_s,            setgaps,        {.i = GAP_TOGGLE} },
 	// Emacs and Nautilus
 	{ MODKEY,                       XK_d,            spawn,          SHCMD("emacs") },
-	{ MODKEY|ShiftMask,             XK_f,            spawn,          SHCMD("nautilus") },
+	{ MODKEY|ShiftMask,             XK_d,            spawn,          SHCMD("nautilus") },
 
 	{ MODKEY,                       XK_f,            spawn,          {.v = browsercmd } },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
@@ -274,13 +274,13 @@ static Button buttons[] = {
 	{ ClkLtSymbol,          0,              Button5,        cyclelayout,    {.i = -1 } },
 
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkWinTitle,          0,              Button4,        movestack,      {.i = -1 } },
-	{ ClkWinTitle,          0,              Button5,        movestack,      {.i = +1 } },
+	{ ClkWinTitle,          0,              Button4,        movestack,      {.i = +1 } },
+	{ ClkWinTitle,          0,              Button5,        movestack,      {.i = -1 } },
 
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkStatusText,        0,              Button3,        spawn,          SHCMD(TERMINAL " -e htop") },
-	{ ClkStatusText,        0,              Button4,        spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
-	{ ClkStatusText,        0,              Button5,        spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+	{ ClkStatusText,        0,              Button4,        spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5%") },
+	{ ClkStatusText,        0,              Button5,        spawn,          SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
 
 	{ ClkRootWin,           0,              Button2,        togglebar,      {0} },
 
