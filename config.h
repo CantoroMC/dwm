@@ -32,6 +32,8 @@ static const char *colors[][3]           = {
 	[SchemeSel]  = { self_fg, self_bg, self_border },
 };
 
+
+
 // Tagging and Rules
 static const char *tags[] = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι" };
 // default layout per tags
