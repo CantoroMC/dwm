@@ -90,4 +90,4 @@ and (re)compiling the source code.
 
 *** Bar
 - status2d
-- adding buttons to slstatus?
+- add buttons?
