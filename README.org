@@ -90,4 +90,4 @@ and (re)compiling the source code.
 
 *** Bar
 - status2d
-- add buttons?
+- how to add custom buttons?
