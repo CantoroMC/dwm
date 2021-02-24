@@ -262,7 +262,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessDown, spawn,  SHCMD("xbacklight -dec 5") },
 	{ 0, XF86XK_MonBrightnessUp,   spawn,  SHCMD("xbacklight -inc 5") },
 	{ 0, XF86XK_Display,           spawn,  SHCMD("monitor_handler") },
-	{ 0, XF86XK_Search,            spawn,  SHCMD(TERMINAL " -e ranger") },
+	{ 0, XF86XK_Search,            spawn,  SHCMD(TERMINAL " -e nnn") },
 	{ 0, XF86XK_Explorer,          spawn,  SHCMD("nautilus") },
 	{ 0, XF86XK_Calculator,        spawn,  SHCMD(TERMINAL " -e ghci") },
 };
