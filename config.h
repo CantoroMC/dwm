@@ -28,8 +28,9 @@ static const char self_fg[]              = "#eaeaea";
 static const char self_bg[]              = "#151a1e";
 static const char self_border[]          = "#b8cc52";
 static const char *colors[][3]           = {
-	[SchemeNorm] = { norm_fg, norm_bg, norm_border },
-	[SchemeSel]  = { self_fg, self_bg, self_border },
+	[SchemeNorm]  = { norm_fg, norm_bg,  norm_border },
+	[SchemeSel]   = { self_fg, self_bg,  self_border },
+	[SchemeTitle] = { norm_fg, "#232b32", norm_border },
 };
 
 
