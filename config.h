@@ -4,7 +4,7 @@ static const unsigned int snap           = 24;           /* snap pixel */
 static const Gap default_gap             = {.isgap = 1, .realgap = 0, .gappx = 0};
 static const int showbar                 = 1;            /* 0 means no bar */
 static const int topbar                  = 1;            /* 0 means bottom bar */
-static const char buttonbar[]            = "Menu";
+static const char buttonbar[]            = "";
 static const unsigned int systraypinning = 1;            /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;            /* systray spacing */
 // 1: if pinning fails, display systray on the first monitor,
