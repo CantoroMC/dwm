@@ -1,5 +1,5 @@
 // Appearance
-static const unsigned int borderpx       = 3;            /* border pixel of windows */
+static const unsigned int borderpx       = 2;            /* border pixel of windows */
 static const unsigned int snap           = 24;           /* snap pixel */
 static const Gap default_gap             = {.isgap = 1, .realgap = 0, .gappx = 0};
 static const int showbar                 = 1;            /* 0 means no bar */
