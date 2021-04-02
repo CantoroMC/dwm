@@ -36,7 +36,7 @@ static const char *colors[][3]           = {
 
 
 // Tagging and Rules
-static const char *tags[] = { "·", "∶", "∴", "∷", "⸭", "∶∷", "∴∷", "∷∷", "∷⸭" };
+static const char *tags[] = { "·", "∶", "∴", "∷", "∷·", "∷∶", "∷∴", "∷∷", "∷∷·" };
 // default layout per tags
 // The first element is for all-tag view, following i-th element corresponds to tags[i].
 // Layout is referred using the layouts array index.
