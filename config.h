@@ -1,5 +1,5 @@
 // Appearance
-static const unsigned int borderpx       = 2;            /* border pixel of windows */
+static const unsigned int borderpx       = 1;            /* border pixel of windows */
 static const unsigned int snap           = 24;           /* snap pixel */
 static const Gap default_gap             = {.isgap = 1, .realgap = 0, .gappx = 0};
 static const int showbar                 = 1;            /* 0 means no bar */
@@ -30,13 +30,13 @@ static const char self_border[]          = "#b8cc52";
 static const char *colors[][3]           = {
 	[SchemeNorm]  = { norm_fg, norm_bg,  norm_border },
 	[SchemeSel]   = { self_fg, self_bg,  self_border },
-	[SchemeTitle] = { norm_fg, "#232b32", norm_border },
+	[SchemeTitle] = { self_fg, "#232b32", norm_border },
 };
 
 
 
 // Tagging and Rules
-static const char *tags[] = { "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι" };
+static const char *tags[] = { "·", "∶", "∴", "∷", "⸭", "∶∷", "∴∷", "∷∷", "∷⸭" };
 // default layout per tags
 // The first element is for all-tag view, following i-th element corresponds to tags[i].
 // Layout is referred using the layouts array index.
@@ -84,6 +84,7 @@ static const Rule rules[] = {
 	{ NULL,                           NULL,       "MATLAB",           1 << 1,  0,          0,          -1,      0 },
 	{ NULL,                           NULL,       "yakuake",          0,       1,          1,          -1,      'y' },
 	{ NULL,                           NULL,       "cmus",             0,       1,          1,          -1,      'm' },
+	{ NULL,                           NULL,       "ncmpcpp",          0,       1,          1,          -1,      'n' },
 	{ NULL,                           NULL,       "orgenda",          0,       1,          1,          -1,      'o' },
 	/* class                          instance     title             tags mask  iscentered isfloating  monitor  scratch key */
 };
@@ -136,6 +137,7 @@ static const char *xmenuexitcmd[] = { "xmenu-shutdown", NULL};
 /*First arg only serves to match against key in rules*/
 static const char *yakuakecmd[] = {"y", TERMINAL, "-t", "yakuake", NULL};
 static const char *cmuscmd[] = {"m", TERMINAL, "-t", "cmus", "-e", "cmus", NULL};
+static const char *ncmpcppcmd[] = {"m", TERMINAL, "-t", "ncmpcpp", "-e", "ncmpcpp", NULL};
 static const char *orgendacmd[] = {"o", "emacs", "--name=orgenda", "~/Documents/organization/Notes.org", NULL};
 
 static Key keys[] = {
@@ -157,6 +159,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 	// Gaps or Spacing
 	{ MODKEY,                       XK_a,            spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_a,            spawn,          SHCMD("kitty") },
 	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
 	{ MODKEY|ControlMask,           XK_s,            setgaps,        {.i = GAP_RESET } },
@@ -209,6 +212,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[3]} },
 	// Monocle Layout
 	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[6]} },
+	// Horizontal Layout
+	{ MODKEY|ControlMask,           XK_space,        setlayout,      {.v = &layouts[2]} },
 	// Decrease/Increase Number of masters
 	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
