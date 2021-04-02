@@ -201,6 +201,7 @@ static Key keys[] = {
 	// Scratchpads
 	{ MODKEY|ShiftMask|ControlMask, XK_y,            togglescratch,  {.v = yakuakecmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_m,            togglescratch,  {.v = cmuscmd } },
+	{ MODKEY|ShiftMask|ControlMask, XK_n,            togglescratch,  {.v = ncmpcppcmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_o,            togglescratch,  {.v = orgendacmd } },
 
 	/*                              Surrounding Keys                                     */
