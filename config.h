@@ -137,7 +137,7 @@ static const char *xmenuexitcmd[] = { "xmenu-shutdown", NULL};
 /*First arg only serves to match against key in rules*/
 static const char *yakuakecmd[] = {"y", TERMINAL, "-t", "yakuake", NULL};
 static const char *cmuscmd[] = {"m", TERMINAL, "-t", "cmus", "-e", "cmus", NULL};
-static const char *ncmpcppcmd[] = {"m", TERMINAL, "-t", "ncmpcpp", "-e", "ncmpcpp", NULL};
+static const char *ncmpcppcmd[] = {"n", TERMINAL, "-t", "ncmpcpp", "-e", "ncmpcpp", NULL};
 static const char *orgendacmd[] = {"o", "emacs", "--name=orgenda", "~/Documents/organization/Notes.org", NULL};
 
 static Key keys[] = {
