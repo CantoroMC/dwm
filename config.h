@@ -35,8 +35,8 @@ static const char *colors[][3]           = {
 
 
 
-// Tagging and Rules
-static const char *tags[] = { "·", "∶", "∴", "∷", "∷·", "∷∶", "∷∴", "∷∷", "∷∷·" };
+// Tagging and Rules (Sinhala Archaic Digits)
+static const char *tags[] = { "𑇡", "𑇢", "𑇣", "𑇤", "𑇥", "𑇦", "𑇧", "𑇨", "𑇩" };
 // default layout per tags
 // The first element is for all-tag view, following i-th element corresponds to tags[i].
 // Layout is referred using the layouts array index.
