@@ -50,6 +50,7 @@ static const Rule rules[] = {
 	{ "Bssh",                         NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "Bvnc",                         NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "CMakeSetup",                   NULL,       NULL,               0,       1,          1,          -1,      0 },
+	{ "Conky",                        NULL,       NULL,              ~0,       0,          1,          -1,      0 },
 	{ "Exo-helper-2",                 NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "feh",                          NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "Gimp",                         NULL,       NULL,               0,       1,          1,          -1,      0 },
