@@ -106,7 +106,8 @@ static const Layout layouts[] = {
 	{ "TTT",      bstack },
 	{ ">>=",      NULL },
 	{ "|+|",      tatami },
-	{ "|||",      tcl },
+	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
 	{ "[M]",      monocle },
 	{ NULL,       NULL },
 };
