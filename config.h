@@ -1,10 +1,10 @@
 // Appearance
 static const unsigned int borderpx       = 1;            /* border pixel of windows */
 static const unsigned int snap           = 24;           /* snap pixel */
-static const Gap default_gap             = {.isgap = 1, .realgap = 0, .gappx = 0};
-static const int showbar                 = 1;            /* 0 means no bar */
-static const int topbar                  = 1;            /* 0 means bottom bar */
-static const char buttonbar[]            = "";
+static const Gap          default_gap    = {.isgap = 1, .realgap = 0, .gappx = 0};
+static const int          showbar        = 1;            /* 0 means no bar */
+static const int          topbar         = 1;            /* 0 means bottom bar */
+static const char         buttonbar[]    = "";
 static const unsigned int systraypinning = 1;            /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayspacing = 2;            /* systray spacing */
 // 1: if pinning fails, display systray on the first monitor,
@@ -14,7 +14,7 @@ static const int showsystray             = 1;            /* 0 means no systray *
 // Display modes of the tab bar:
 //   never shown, always shown, shown only in monocle mode in presence of several windows.
 // Modes after showtab_nmodes are disabled
-enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
+enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always };
 static const int showtab                 = showtab_auto; /* Default tab bar show mode */
 static const Bool toptab                 = True;        /* False means bottom tab bar */
 static const char *fonts[]               = {
@@ -40,7 +40,7 @@ static const char *tags[] = { "𑇡", "𑇢", "𑇣", "𑇤", "𑇥", "𑇦", "�
 // default layout per tags
 // The first element is for all-tag view, following i-th element corresponds to tags[i].
 // Layout is referred using the layouts array index.
-static int def_layouts[1 + LENGTH(tags)]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+static int def_layouts[1 + LENGTH(tags)]  = { 0, 0, 0, 5, 0, 0, 0, 0, 7, 3 };
 static const Rule rules[] = {
 	/* class                          instance     title             tags mask  iscentered isfloating  monitor  scratch key */
 	{ "Arandr",                       NULL,       NULL,               0,       1,          1,          -1,      0 },
@@ -97,7 +97,7 @@ static const int focusonwheel    = 0;
 static const float mfact         = 0.5;  /* factor of master area size [0.05..0.95] */
 static const float smfact        = 0.00; /* factor of tiled clients [0.00..0.95] */
 static const int nmaster         = 1;    /* number of clients in master area */
-static const unsigned int minwsz = 20;   /* Minimal heigt of a client for smfact */
+static const unsigned int minwsz = 20;   /* Minimal height of a client for smfact */
 static const int resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -115,14 +115,10 @@ static const Layout layouts[] = {
 
 
 // Key Definitions
-static const char *layoutmenu_cmd = "xmenu_dwmlayout";
-static char dmenumon[2]           = "0"; /* component of dmenucmd, manipulated in spawn() */
+static       char dmenumon[2]     = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *termcmd[]      = { "st", NULL };
-static const char *browsercmd[]   = { "vivaldi-stable", NULL };
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
-static const char *roficmd[]      = { "rofi", "-modi", "drun,run,combi", "-show", "combi", NULL};
-static const char *xmenucmd[]     = { "xmenu-apps", NULL};
-static const char *xmenuexitcmd[] = { "xmenu-shutdown", NULL};
+static const char *layoutmenu_cmd = "xmenu_dwmlayout";
 
 
 #define MODKEY Mod4Mask
@@ -170,7 +166,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,            spawn,          SHCMD("emacs") },
 	{ MODKEY|ShiftMask,             XK_d,            spawn,          SHCMD("nautilus") },
 
-	{ MODKEY,                       XK_f,            spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_f,            spawn,          SHCMD("vivaldi-stable") },
 	{ MODKEY|ShiftMask,             XK_f,            spawn,          SHCMD("surf-open") },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
@@ -197,8 +193,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,            zoom,           {0} },
 	// Menu launchers
 	{ MODKEY,                       XK_u,            spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_u,            spawn,          {.v = roficmd } },
-	{ MODKEY|ControlMask,           XK_u,            spawn,          {.v = xmenucmd } },
+	{ MODKEY|ShiftMask,             XK_u,            spawn,          SHCMD("rofi -modi drun,run,combi -show combi") },
+	{ MODKEY|ControlMask,           XK_u,            spawn,          SHCMD("xmenu-apps") },
 
 	// Scratchpads
 	{ MODKEY|ShiftMask|ControlMask, XK_y,            togglescratch,  {.v = yakuakecmd } },
@@ -214,9 +210,11 @@ static Key keys[] = {
 	// Floating Layout
 	{ MODKEY,                       XK_space,        setlayout,      {.v = &layouts[3]} },
 	// Monocle Layout
-	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[6]} },
+	{ MODKEY|ShiftMask,             XK_space,        setlayout,      {.v = &layouts[7]} },
 	// Horizontal Layout
 	{ MODKEY|ControlMask,           XK_space,        setlayout,      {.v = &layouts[2]} },
+	// Centered Master Layout
+	{ MODKEY|ShiftMask|ControlMask, XK_space,        setlayout,      {.v = &layouts[5]} },
 	// Decrease/Increase Number of masters
 	{ MODKEY,                       XK_period,       incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,        incnmaster,     {.i = +1 } },
@@ -230,7 +228,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return,       spawn,          SHCMD("kitty") },
 	{ MODKEY|ControlMask,           XK_Return,       spawn,          SHCMD("tabbed -c -r 2 " TERMINAL " -w ''") },
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,          SHCMD("slock") },
-	{ MODKEY,                       XK_Delete,       spawn,          {.v = xmenuexitcmd } },
+	{ MODKEY,                       XK_Delete,       spawn,          SHCMD("xmenu-shutdown") },
 	{ MODKEY|ShiftMask,             XK_Delete,       quit,           {0} },
 
 	{ MODKEY,                       XK_Print,       spawn,          SHCMD("scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshoot.png; notify-send -i photo 'Taken fullscreen screenshot'") },
@@ -283,8 +281,8 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,            0,              Button1,        spawn,          {.v = xmenucmd } },
-	{ ClkButton,            0,              Button3,        spawn,          {.v = xmenuexitcmd } },
+	{ ClkButton,            0,              Button1,        spawn,          SHCMD("xmenu-apps") },
+	{ ClkButton,            0,              Button3,        spawn,          SHCMD("xmenu-shutdown") },
 	{ ClkButton,            0,              Button2,        spawn,          SHCMD("weather") },
 	{ ClkButton,            0,              Button4,        spawn,          SHCMD("xbacklight -inc 5") },
 	{ ClkButton,            0,              Button5,        spawn,          SHCMD("xbacklight -dec 5") },
