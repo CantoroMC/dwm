@@ -195,6 +195,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,            spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_u,            spawn,          SHCMD("rofi -modi drun,run,combi -show combi") },
 	{ MODKEY|ControlMask,           XK_u,            spawn,          SHCMD("xmenu-apps") },
+	{ MODKEY|ShiftMask|ControlMask, XK_u,            spawn,          SHCMD("xmenu-utilities") },
 
 	// Scratchpads
 	{ MODKEY|ShiftMask|ControlMask, XK_y,            togglescratch,  {.v = yakuakecmd } },
