@@ -66,6 +66,7 @@ static const Rule rules[] = {
 	{ "Pavucontrol",                  NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "qv4l2",                        NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "qvidcap",                      NULL,       NULL,               0,       1,          1,          -1,      0 },
+	{ "Snapper-gui",                  NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "System-config-printer.py",     NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "Sxiv",                         NULL,       NULL,               0,       1,          1,          -1,      0 },
 	{ "Xarchiver",                    NULL,       NULL,               0,       1,          1,          -1,      0 },
