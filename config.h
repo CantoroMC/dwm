@@ -156,23 +156,22 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
-	// Gaps or Spacing
+
 	{ MODKEY,                       XK_a,            spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_a,            spawn,          SHCMD("kitty") },
+	// Gaps or Spacing
 	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
 	{ MODKEY|ControlMask,           XK_s,            setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask|ControlMask, XK_s,            setgaps,        {.i = GAP_TOGGLE} },
-	// Emacs and Nautilus
+
 	{ MODKEY,                       XK_d,            spawn,          SHCMD("emacs") },
-	{ MODKEY|ShiftMask,             XK_d,            spawn,          SHCMD("nautilus") },
 
 	{ MODKEY,                       XK_f,            spawn,          SHCMD("vivaldi-stable") },
 	{ MODKEY|ShiftMask,             XK_f,            spawn,          SHCMD("surf-open") },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
 	/*                              Right Side                                           */
-
 	// Music Players
 	{ MODKEY,                       XK_p,            spawn,          SHCMD(TERMINAL " -e ncmpcpp")},
 	{ MODKEY|ShiftMask,             XK_p,            spawn,          SHCMD(TERMINAL " -e cmus")},
