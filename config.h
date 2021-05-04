@@ -157,8 +157,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 
-	{ MODKEY,                       XK_a,            spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_a,            spawn,          SHCMD("kitty") },
+	{ MODKEY,                       XK_a,            spawn,          SHCMD("kitty") },
+	{ MODKEY|ShiftMask,             XK_a,            spawn,          {.v = termcmd } },
 	// Gaps or Spacing
 	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
