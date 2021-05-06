@@ -174,9 +174,6 @@ static Key keys[] = {
 
 	/*                              Right Side                                           */
 
-	// Music Players
-	{ MODKEY,                       XK_p,            spawn,          SHCMD(TERMINAL " -e ncmpcpp")},
-	{ MODKEY|ShiftMask,             XK_p,            spawn,          SHCMD(TERMINAL " -e cmus")},
 	// Focus previous/next client
 	{ MODKEY,                       XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_j,            focusstack,     {.i = +1 } },
