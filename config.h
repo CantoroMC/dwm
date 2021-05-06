@@ -156,9 +156,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
+
+	{ MODKEY,                       XK_a,            spawn,          SHCMD("kitty") },
+	{ MODKEY|ShiftMask,             XK_a,            spawn,          {.v = termcmd } },
 	// Gaps or Spacing
-	{ MODKEY,                       XK_a,            spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_a,            spawn,          SHCMD("kitty") },
 	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
 	{ MODKEY|ControlMask,           XK_s,            setgaps,        {.i = GAP_RESET } },
@@ -226,8 +227,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
 	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = +1 } },
 
-	{ MODKEY,                       XK_Return,       spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return,       spawn,          SHCMD("kitty") },
+	{ MODKEY,                       XK_Return,       spawn,          SHCMD("kitty") },
+	{ MODKEY|ShiftMask,             XK_Return,       spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_Return,       spawn,          SHCMD("tabbed -c -r 2 " TERMINAL " -w ''") },
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,          SHCMD("slock") },
 	{ MODKEY,                       XK_Delete,       spawn,          SHCMD("xmenu-shutdown") },
