@@ -30,7 +30,7 @@ static const char self_border[]          = "#8ce00a";
 static const char *colors[][3]           = {
 	[SchemeNorm]  = { norm_fg, norm_bg,  norm_border },
 	[SchemeSel]   = { self_fg, self_bg,  self_border },
-	[SchemeTitle] = { self_fg, "#232b32", norm_border },
+	[SchemeTitle] = { self_fg, "#002a3a", norm_border },
 };
 
 
