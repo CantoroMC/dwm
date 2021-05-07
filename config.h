@@ -23,8 +23,8 @@ static const char *fonts[]               = {
 };
 static const char norm_bg[]              = "#0d0f18";
 static const char norm_border[]          = "#0d0f18";
-static const char norm_fg[]              = "#8ce00a";
-static const char self_fg[]              = "#ffffff";
+static const char norm_fg[]              = "#ffffff";
+static const char self_fg[]              = "#8ce00a";
 static const char self_bg[]              = "#0d0f18";
 static const char self_border[]          = "#8ce00a";
 static const char *colors[][3]           = {
