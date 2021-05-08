@@ -52,7 +52,7 @@ and (re)compiling the source code.
 ** Applied
 - focusmaster
 - movestack
-- smfactor
+- stackmfact
 - pertag
 - shiftview and shifttag
 - moveresize (move float)
