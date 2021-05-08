@@ -21,16 +21,16 @@ static const char *fonts[]               = {
 	"Operator Mono Lig Book:size=9.0",
 	"FiraCode Nerd Font Book:size=9.0",
 };
-static const char norm_bg[]              = "#151a1e";
-static const char norm_border[]          = "#151a1e";
-static const char norm_fg[]              = "#b8cc52";
-static const char self_fg[]              = "#eaeaea";
-static const char self_bg[]              = "#151a1e";
-static const char self_border[]          = "#b8cc52";
+static const char norm_bg[]              = "#0d0f18";
+static const char norm_border[]          = "#0d0f18";
+static const char norm_fg[]              = "#ffffff";
+static const char self_fg[]              = "#8ce00a";
+static const char self_bg[]              = "#0d0f18";
+static const char self_border[]          = "#8ce00a";
 static const char *colors[][3]           = {
 	[SchemeNorm]  = { norm_fg, norm_bg,  norm_border },
 	[SchemeSel]   = { self_fg, self_bg,  self_border },
-	[SchemeTitle] = { self_fg, "#232b32", norm_border },
+	[SchemeTitle] = { self_fg, "#002a3a", norm_border },
 };
 
 
@@ -172,9 +172,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
 
 	/*                              Right Side                                           */
-	// Music Players
-	{ MODKEY,                       XK_p,            spawn,          SHCMD(TERMINAL " -e ncmpcpp")},
-	{ MODKEY|ShiftMask,             XK_p,            spawn,          SHCMD(TERMINAL " -e cmus")},
 	// Focus previous/next client
 	{ MODKEY,                       XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_j,            focusstack,     {.i = +1 } },
@@ -225,8 +222,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
 	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = +1 } },
 
-	{ MODKEY,                       XK_Return,       spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_Return,       spawn,          SHCMD("kitty") },
+	{ MODKEY,                       XK_Return,       spawn,          SHCMD("kitty") },
+	{ MODKEY|ShiftMask,             XK_Return,       spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_Return,       spawn,          SHCMD("tabbed -c -r 2 " TERMINAL " -w ''") },
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,          SHCMD("slock") },
 	{ MODKEY,                       XK_Delete,       spawn,          SHCMD("xmenu-shutdown") },
