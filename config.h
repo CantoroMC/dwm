@@ -23,7 +23,7 @@ static const char *fonts[]               = {
 };
 static const char norm_bg[]              = "#0d0f18";
 static const char norm_border[]          = "#0d0f18";
-static const char norm_fg[]              = "#ffffff";
+static const char norm_fg[]              = "#36a3d9";
 static const char self_fg[]              = "#8ce00a";
 static const char self_bg[]              = "#0d0f18";
 static const char self_border[]          = "#8ce00a";
@@ -80,7 +80,8 @@ static const Rule rules[] = {
 	{ NULL,                           NULL,       "weatherreport",    0,       1,          1,          -1,      0 },
 	{ NULL,                           "pop-up",   NULL,               0,       1,          1,          -1,      0 },
 	{ "Display",                      NULL,       "ImageMagick: ",    0,       1,          1,          -1,      0 },
-	{ "MATLAB R2021a - academic use", NULL,       "Help",             0,       1,          1,          -1,      0 },
+	{ "MATLAB R2021a - academic use", NULL,       "Help",             0,       0,          1,          -1,      0 },
+	{ "MATLAB R2021a - academic use", NULL,       "Preferences",      0,       1,          1,          -1,      0 },
 	{ "Transmission-gtk",             NULL,       NULL,               1 << 8,  1,          1,          -1,      0 },
 	{ "mpv",                          NULL,       NULL,               1 << 4,  0,          0,          -1,      0 },
 	{ NULL,                           NULL,       "MATLAB",           1 << 1,  0,          0,          -1,      0 },
