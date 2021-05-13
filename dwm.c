@@ -587,12 +587,13 @@ buttonpress(XEvent *e)
 			if (i < LENGTH(tags)) {
 				click = ClkTagBar;
 				arg.ui = 1 << i;
-			} else if (ev->x < x + blw)
+			} else if (ev->x < x + blw) {
 				click = ClkLtSymbol;
-			else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth())
+			} else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth()) {
 				click = ClkStatusText;
-			else
+			} else {
 				click = ClkWinTitle;
+			}
 		}
 	}
 	if (ev->window == selmon->tabwin) {
