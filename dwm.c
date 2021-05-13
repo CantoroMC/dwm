@@ -1111,7 +1111,7 @@ drawbar(Monitor *m)
 
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) /* status is only drawn on selected monitor */
-		tw = m->ww - drawstatusbar(m, bh, stext);
+		tw = m->ww - drawstatusbar(m, bh, stext) - stw;
 
 	resizebarwin(m);
 	for (c = m->clients; c; c = c->next) {
