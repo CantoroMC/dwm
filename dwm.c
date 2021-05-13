@@ -1221,7 +1221,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
 			text[i] = '\0';
 			w = TEXTW(text) - lrpad;
-			drw_text(drw, x - stw, 0, w, bh, lrpad / 2 - 2 , text, 0);
+			drw_text(drw, x - stw, 0, w, bh, 0, text, 0);
 
 			x += w;
 
@@ -1265,7 +1265,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
 	if (!isCode) {
 		w = TEXTW(text) - lrpad;
-		drw_text(drw, x - stw, 0, w, bh, lrpad / 2 - 2, text, 0);
+		drw_text(drw, x - stw, 0, w, bh, 0, text, 0);
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
