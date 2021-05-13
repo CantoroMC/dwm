@@ -136,15 +136,13 @@ static const char *layoutmenu_cmd = "xmenu_dwmlayout";
 
 /*First arg only serves to match against key in rules*/
 static const char *yakuakecmd[] = {"y", TERMINAL, "-t", "yakuake", NULL};
-static const char *cmuscmd[] = {"m", TERMINAL, "-t", "cmus", "-e", "cmus", NULL};
+static const char *cmuscmd[]    = {"m", TERMINAL, "-t", "cmus", "-e", "cmus", NULL};
 static const char *ncmpcppcmd[] = {"n", TERMINAL, "-t", "ncmpcpp", "-e", "ncmpcpp", NULL};
-static const char *orgendacmd[] = {"o", "emacs", "--name=orgenda", "~/Documents/organization/Notes.org", NULL};
+static const char *orgendacmd[] = {"o", "emacs",  "--name=orgenda", "~/Documents/organization/Notes.org", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-
 	/*                              Left Side                           */
-
 	{ MODKEY,                       XK_q,            resetlayout,    {0} },
 	{ MODKEY|ShiftMask,             XK_q,            killclient,     {0} },
 	// Monitors: shift and move to previous/next
@@ -165,16 +163,13 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
 	{ MODKEY|ControlMask,           XK_s,            setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask|ControlMask, XK_s,            setgaps,        {.i = GAP_TOGGLE} },
-	// Emacs and Nautilus
+
 	{ MODKEY,                       XK_d,            spawn,          SHCMD("emacs") },
-	{ MODKEY|ShiftMask,             XK_d,            spawn,          SHCMD("nautilus") },
 
 	{ MODKEY,                       XK_f,            spawn,          SHCMD("vivaldi-stable") },
 	{ MODKEY|ShiftMask,             XK_f,            spawn,          SHCMD("surf-open") },
 	{ MODKEY,                       XK_b,            togglebar,      {0} },
-
 	/*                              Right Side                                           */
-
 	// Focus previous/next client
 	{ MODKEY,                       XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_j,            focusstack,     {.i = +1 } },
@@ -196,15 +191,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_u,            spawn,          SHCMD("rofi -modi drun,run,combi -show combi") },
 	{ MODKEY|ControlMask,           XK_u,            spawn,          SHCMD("xmenu-apps") },
 	{ MODKEY|ShiftMask|ControlMask, XK_u,            spawn,          SHCMD("xmenu-utilities") },
-
 	// Scratchpads
 	{ MODKEY|ShiftMask|ControlMask, XK_y,            togglescratch,  {.v = yakuakecmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_m,            togglescratch,  {.v = cmuscmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_n,            togglescratch,  {.v = ncmpcppcmd } },
 	{ MODKEY|ShiftMask|ControlMask, XK_o,            togglescratch,  {.v = orgendacmd } },
-
 	/*                              Surrounding Keys                                     */
-
 	// Master/Stack Vertical Layout
 	{ MODKEY,                       XK_Tab,          cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,          cyclelayout,    {.i = -1 } },
@@ -234,9 +226,7 @@ static Key keys[] = {
 
 	{ MODKEY,                       XK_Print,       spawn,          SHCMD("scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshoot.png; notify-send -i photo 'Taken fullscreen screenshot'") },
 	{ MODKEY|ShiftMask,             XK_Print,       quit,           SHCMD("import ~/Pictures/Screenshots/$(date +%Y-%m-%d-%T)screenshoot.png; notify-send -i photo 'Saved to ~/Pictures/Screenshots'") },
-
 	/*                              Arrows                                             */
-
 	{ MODKEY,                       XK_Down,         moveresize,     {.v = "0x 25y 0w 0h"  } },
 	{ MODKEY,                       XK_Up,           moveresize,     {.v = "0x -25y 0w 0h" } },
 	{ MODKEY,                       XK_Right,        moveresize,     {.v = "25x 0y 0w 0h"  } },
@@ -249,9 +239,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Up,           spawn,          SHCMD("mpc play")},
 	{ MODKEY|ControlMask,           XK_Right,        spawn,          SHCMD("mpc next")},
 	{ MODKEY|ControlMask,           XK_Left,         spawn,          SHCMD("mpc prev")},
-
 	/*                              Numbers                                              */
-
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	TAGKEYS(                        XK_1,                      0)
@@ -263,7 +251,6 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-
 	/*                              Fn and Extra Keys                                    */
 	{ 0, XF86XK_AudioMute,         spawn,  SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 	{ 0, XF86XK_AudioLowerVolume,  spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
