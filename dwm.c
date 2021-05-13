@@ -1111,7 +1111,7 @@ drawbar(Monitor *m)
 
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon) /* status is only drawn on selected monitor */
-		tw = m->ww - drawstatusbar(m, bh, stext) - stw;
+		tw = m->ww - drawstatusbar(m, bh, stext);
 
 	resizebarwin(m);
 	for (c = m->clients; c; c = c->next) {
@@ -1165,10 +1165,13 @@ drawbars(void)
 
 int
 drawstatusbar(Monitor *m, int bh, char* stext) {
-	int ret, i, w, x, len;
+	int ret, i, w, x, len, stw = 0;
 	short isCode = 0;
 	char *text;
 	char *p;
+
+	if(showsystray && m == systraytomon(m))
+		stw = getsystraywidth();
 
 	len = strlen(stext) + 1 ;
 	if (!(text = (char*) malloc(sizeof(char)*len)))
@@ -1218,7 +1221,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
 			text[i] = '\0';
 			w = TEXTW(text) - lrpad;
-			drw_text(drw, x, 0, w, bh, 0, text, 0);
+			drw_text(drw, x - stw, 0, w, bh, lrpad / 2 - 2 , text, 0);
 
 			x += w;
 
@@ -1262,7 +1265,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 
 	if (!isCode) {
 		w = TEXTW(text) - lrpad;
-		drw_text(drw, x, 0, w, bh, 0, text, 0);
+		drw_text(drw, x - stw, 0, w, bh, lrpad / 2 - 2, text, 0);
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
