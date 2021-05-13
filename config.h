@@ -21,16 +21,16 @@ static const char *fonts[]               = {
 	"Operator Mono Lig Book:size=10.0",
 	"FiraCode Nerd Font Book:size=10.0",
 };
-static const char norm_bg[]              = "#0d0f18";
-static const char norm_border[]          = "#0d0f18";
-static const char norm_fg[]              = "#36a3d9";
-static const char self_fg[]              = "#8ce00a";
-static const char self_bg[]              = "#0d0f18";
-static const char self_border[]          = "#8ce00a";
+static const char norm_bg[]              = "#151a1e";
+static const char norm_border[]          = "#151a1e";
+static const char norm_fg[]              = "#95e6cb";
+static const char self_fg[]              = "#b8cc52";
+static const char self_bg[]              = "#151a1e";
+static const char self_border[]          = "#b8cc52";
 static const char *colors[][3]           = {
 	[SchemeNorm]  = { norm_fg, norm_bg,  norm_border },
 	[SchemeSel]   = { self_fg, self_bg,  self_border },
-	[SchemeTitle] = { self_fg, "#002a3a", norm_border },
+	[SchemeTitle] = { self_fg, "#232b23", norm_border },
 };
 
 
