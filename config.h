@@ -153,7 +153,7 @@ static Key keys[] = {
 	// Go to previous tag/layout
 	{ MODKEY,                       XK_r,            view,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
-	{ MODKEY|ControlMask            XK_r,            spawn,          SHCMD("tabbed -c zathura -e") },
+	{ MODKEY|ControlMask,           XK_r,            spawn,          SHCMD("tabbed -c zathura -e") },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 
