@@ -18,8 +18,8 @@ enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always
 static const int showtab                 = showtab_auto; /* Default tab bar show mode */
 static const Bool toptab                 = True;        /* False means bottom tab bar */
 static const char *fonts[]               = {
-	"Operator Mono Lig Book:size=9.0",
-	"FiraCode Nerd Font Book:size=9.0",
+	"Operator Mono Lig Book:size=8.0",
+	"FiraCode Nerd Font Book:size=8.0",
 };
 static const char norm_bg[]              = "#151a1e";
 static const char norm_border[]          = "#151a1e";
