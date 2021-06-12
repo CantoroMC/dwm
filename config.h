@@ -153,6 +153,7 @@ static Key keys[] = {
 	// Go to previous tag/layout
 	{ MODKEY,                       XK_r,            view,           {0} },
 	{ MODKEY|ShiftMask,             XK_r,            setlayout,      {0} },
+	{ MODKEY|ControlMask            XK_r,            spawn,          SHCMD("tabbed -c zathura -e") },
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 
@@ -224,8 +225,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Delete,       spawn,          SHCMD("xmenu-shutdown") },
 	{ MODKEY|ShiftMask,             XK_Delete,       quit,           {0} },
 
-	{ MODKEY,                       XK_Print,       spawn,          SHCMD("scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshoot.png; notify-send -i photo 'Taken fullscreen screenshot'") },
-	{ MODKEY|ShiftMask,             XK_Print,       quit,           SHCMD("import ~/Pictures/Screenshots/$(date +%Y-%m-%d-%T)screenshoot.png; notify-send -i photo 'Saved to ~/Pictures/Screenshots'") },
+	{ MODKEY,                       XK_Print,        spawn,          SHCMD("scrot ~/Pictures/Screenshots/%Y-%m-%d-%T-screenshoot.png; notify-send -i photo 'Taken fullscreen screenshot'") },
+	{ MODKEY|ShiftMask,             XK_Print,        quit,           SHCMD("import ~/Pictures/Screenshots/$(date +%Y-%m-%d-%T)screenshoot.png; notify-send -i photo 'Saved to ~/Pictures/Screenshots'") },
 	/*                              Arrows                                             */
 	{ MODKEY,                       XK_Down,         moveresize,     {.v = "0x 25y 0w 0h"  } },
 	{ MODKEY,                       XK_Up,           moveresize,     {.v = "0x -25y 0w 0h" } },
@@ -240,17 +241,17 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Right,        spawn,          SHCMD("mpc next")},
 	{ MODKEY|ControlMask,           XK_Left,         spawn,          SHCMD("mpc prev")},
 	/*                              Numbers                                              */
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY,                       XK_0,            view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,            tag,            {.ui = ~0 } },
+	TAGKEYS(                        XK_1, 0)
+	TAGKEYS(                        XK_2, 1)
+	TAGKEYS(                        XK_3, 2)
+	TAGKEYS(                        XK_4, 3)
+	TAGKEYS(                        XK_5, 4)
+	TAGKEYS(                        XK_6, 5)
+	TAGKEYS(                        XK_7, 6)
+	TAGKEYS(                        XK_8, 7)
+	TAGKEYS(                        XK_9, 8)
 	/*                              Fn and Extra Keys                                    */
 	{ 0, XF86XK_AudioMute,         spawn,  SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle") },
 	{ 0, XF86XK_AudioLowerVolume,  spawn,  SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5%") },
@@ -259,7 +260,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp,   spawn,  SHCMD("xbacklight -inc 5") },
 	{ 0, XF86XK_Display,           spawn,  SHCMD("monitor_handler") },
 	{ 0, XF86XK_Search,            spawn,  SHCMD(TERMINAL " -e nnn") },
-	{ 0, XF86XK_Explorer,          spawn,  SHCMD("nautilus") },
+	{ 0, XF86XK_Explorer,          spawn,  SHCMD("vivaldi-stable") },
 	{ 0, XF86XK_Calculator,        spawn,  SHCMD(TERMINAL " -e ghci") },
 };
 
