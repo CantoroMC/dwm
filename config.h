@@ -118,7 +118,7 @@ static const Layout layouts[] = {
 
 // Key Definitions
 static       char dmenumon[2]     = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *termcmd[]      = { "st", NULL };
+static const char *termcmd[]      = { "kitty", NULL };
 static const char *dmenucmd[]     = { "dmenu_run", "-m", dmenumon, NULL };
 static const char *layoutmenu_cmd = "xmenu_dwmlayout";
 
@@ -132,12 +132,12 @@ static const char *layoutmenu_cmd = "xmenu_dwmlayout";
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-#define TERMINAL "st"
+#define TERMINAL "kitty"
 
 /*First arg only serves to match against key in rules*/
-static const char *yakuakecmd[] = {"y", TERMINAL, "-t", "yakuake", NULL};
-static const char *cmuscmd[]    = {"m", TERMINAL, "-t", "cmus", "-e", "cmus", NULL};
-static const char *ncmpcppcmd[] = {"n", TERMINAL, "-t", "ncmpcpp", "-e", "ncmpcpp", NULL};
+static const char *yakuakecmd[] = {"y", TERMINAL, "--title", "yakuake", NULL};
+static const char *cmuscmd[]    = {"m", TERMINAL, "--title", "cmus", "-e", "cmus", NULL};
+static const char *ncmpcppcmd[] = {"n", TERMINAL, "--title", "ncmpcpp", "-e", "ncmpcpp", NULL};
 static const char *orgendacmd[] = {"o", "emacs",  "--name=orgenda", "~/Documents/organization/Notes.org", NULL};
 
 static Key keys[] = {
@@ -157,8 +157,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,            togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_t,            tabmode,        {-1} },
 
-	{ MODKEY,                       XK_a,            spawn,          SHCMD("kitty") },
-	{ MODKEY|ShiftMask,             XK_a,            spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_a,            spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_a,            spawn,          SHCMD("st") },
 	// Gaps or Spacing
 	{ MODKEY,                       XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             XK_s,            setgaps,        {.i = -3 } },
@@ -218,9 +218,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_bracketleft,  shifttag,       { .i = -1 } },
 	{ MODKEY|ShiftMask,             XK_bracketright, shifttag,       { .i = +1 } },
 
-	{ MODKEY,                       XK_Return,       spawn,          SHCMD("kitty") },
-	{ MODKEY|ShiftMask,             XK_Return,       spawn,          {.v = termcmd } },
-	{ MODKEY|ControlMask,           XK_Return,       spawn,          SHCMD("tabbed -c -r 2 " TERMINAL " -w ''") },
+	{ MODKEY,                       XK_Return,       spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,       spawn,          SHCMD("st") },
+	{ MODKEY|ControlMask,           XK_Return,       spawn,          SHCMD("tabbed -c -r 2 st -w ''") },
 	{ MODKEY|ShiftMask,             XK_BackSpace,    spawn,          SHCMD("slock") },
 	{ MODKEY,                       XK_Delete,       spawn,          SHCMD("xmenu-shutdown") },
 	{ MODKEY|ShiftMask,             XK_Delete,       quit,           {0} },
