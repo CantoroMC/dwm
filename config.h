@@ -159,6 +159,7 @@ static Key keys[] = {
 
 	{ MODKEY,                       -1,         XK_a,            spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             -1,         XK_a,            spawn,          SHCMD("st") },
+	{ MODKEY|ControlMask,           -1,         XK_a,            spawn,          SHCMD("tabbed -c -r 2 st -w ''") },
 	// Gaps or Spacing
 	{ MODKEY,                       -1,         XK_s,            setgaps,        {.i = +3 } },
 	{ MODKEY|ShiftMask,             -1,         XK_s,            setgaps,        {.i = -3 } },
@@ -166,6 +167,10 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, -1,         XK_s,            setgaps,        {.i = GAP_TOGGLE} },
 
 	{ MODKEY,                       -1,         XK_d,            spawn,          SHCMD("emacs") },
+	{ MODKEY|ShiftMask,             XK_d,       XK_y,            togglescratch,  {.v = yakuakecmd } },
+	{ MODKEY|ShiftMask,             XK_d,       XK_m,            togglescratch,  {.v = cmuscmd } },
+	{ MODKEY|ShiftMask,             XK_d,       XK_n,            togglescratch,  {.v = ncmpcppcmd } },
+	{ MODKEY|ShiftMask,             XK_d,       XK_o,            togglescratch,  {.v = orgendacmd } },
 
 	{ MODKEY,                       -1,         XK_f,            spawn,          SHCMD("vivaldi-stable") },
 	{ MODKEY|ShiftMask,             -1,         XK_f,            spawn,          SHCMD("surf-open") },
@@ -197,7 +202,18 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, -1,         XK_m,            togglescratch,  {.v = cmuscmd } },
 	{ MODKEY|ShiftMask|ControlMask, -1,         XK_n,            togglescratch,  {.v = ncmpcppcmd } },
 	{ MODKEY|ShiftMask|ControlMask, -1,         XK_o,            togglescratch,  {.v = orgendacmd } },
-	{ MODKEY,                       XK_p,       XK_t,            spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_p,       XK_h,            spawn,          SHCMD("mpc prev") },
+	{ MODKEY,                       XK_p,       XK_l,            spawn,          SHCMD("mpc next") },
+	{ MODKEY,                       XK_p,       XK_j,            spawn,          SHCMD("mpc play") },
+	{ MODKEY,                       XK_p,       XK_k,            spawn,          SHCMD("mpc pause") },
+	{ MODKEY,                       XK_p,       XK_space,        spawn,          SHCMD("mpc toggle") },
+	{ MODKEY,                       XK_p,       XK_r,            spawn,          SHCMD("mpc repeat") },
+	{ MODKEY,                       XK_p,       XK_c,            spawn,          SHCMD("mpc consume") },
+	{ MODKEY,                       XK_p,       XK_z,            spawn,          SHCMD("mpc random") },
+	{ MODKEY,                       XK_p,       XK_y,            spawn,          SHCMD("mpc single") },
+	{ MODKEY,                       XK_p,       XK_m,            spawn,          SHCMD(TERMINAL " -e pulsemixer") },
+	{ MODKEY,                       XK_p,       XK_q,            spawn,          SHCMD("mpv_bulk_quit") },
+	{ MODKEY,                       XK_p,       XK_t,            spawn,          SHCMD("mpv_bulk_toggle") },
 	/*                              Surrounding Keys                                     */
 	// Master/Stack Vertical Layout
 	{ MODKEY,                       -1,         XK_Tab,          cyclelayout,    {.i = +1 } },
