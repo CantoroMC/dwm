@@ -21,10 +21,11 @@
 #ifndef DWM_H
 #define DWM_H
 
-#include <X11/Xlib.h>
-#include <X11/keysym.h>
 #include <X11/XF86keysym.h>
 #include <X11/Xft/Xft.h>
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <stdint.h>
 
 #include "drw.h"
 
@@ -38,6 +39,8 @@
 #define INTERSECT(x, y, w, h, m) \
 	(MAX(0, MIN((x) + (w), (m)->wx + (m)->ww) - MAX((x), (m)->wx)) * \
 	 MAX(0, MIN((y) + (h), (m)->wy + (m)->wh) - MAX((y), (m)->wy)))
+#define ICONSIZE    16
+#define ICONSPACING 5
 #define ISVISIBLE(C) ((C->tags & C->mon->tagset[C->mon->seltags]))
 #define LENGTH(X) (sizeof X / sizeof X[0])
 #define MODKEY Mod4Mask
@@ -72,6 +75,7 @@ enum { SchemeNorm, SchemeSel };                  /* color schemes */
 enum {
 	NetSupported,
 	NetWMName,
+	NetWMIcon,
 	NetWMState,
 	NetWMCheck,
    NetSystemTray,
@@ -85,7 +89,7 @@ enum {
 	NetClientList,
 	NetLast
 }; /* EWMH atoms */
-enum { 
+enum {
 	Manager,
 	Xembed,
 	XembedInfo,
@@ -136,11 +140,12 @@ struct Client {
 	int          basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
 	int          bw, oldbw;
 	unsigned int tags;
-	int      isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
-	Client*  next;
-	Client*  snext;
-	Monitor* mon;
-	Window   win;
+	int          isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	unsigned int icw, ich; Picture icon;
+	Client*      next;
+	Client*      snext;
+	Monitor*     mon;
+	Window       win;
 };
 
 typedef struct {
@@ -228,7 +233,9 @@ static void         focus(Client* c);
 static void         focusin(XEvent* e);
 static void         focusmon(const Arg* arg);
 static void         focusstack(const Arg* arg);
+static void         freeicon(Client *c);
 static Atom         getatomprop(Client* c, Atom prop);
+static Picture      geticonprop(Window w, unsigned int *icw, unsigned int *ich);
 static int          getrootptr(int* x, int* y);
 static long         getstate(Window w);
 static unsigned int getsystraywidth();
@@ -247,6 +254,7 @@ static void         motionnotify(XEvent* e);
 static void         movemouse(const Arg* arg);
 static Client*      nexttiled(Client* c);
 static void         pop(Client* c);
+static uint32_t     prealpha(uint32_t p);
 static void         propertynotify(XEvent* e);
 static void         quit(const Arg* arg);
 static Monitor*     recttomon(int x, int y, int w, int h);
@@ -287,6 +295,7 @@ static void         updatebarpos(Monitor* m);
 static void         updatebars(void);
 static void         updateclientlist(void);
 static int          updategeom(void);
+static void         updateicon(Client *c);
 static void         updatenumlockmask(void);
 static void         updatesizehints(Client* c);
 static void         updatestatus(void);
