@@ -236,6 +236,7 @@ static void     sigchld(int unused);
 static void     spawn(const Arg* arg);
 static void     tag(const Arg* arg);
 static void     tagmon(const Arg* arg);
+static void     tatami(Monitor *m);
 static void     tile(Monitor* m);
 static void     togglebar(const Arg* arg);
 static void     togglefloating(const Arg* arg);
@@ -369,6 +370,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
 	{ "TTT", bstack },
+	{ "|+|", tatami },
 	{ "[M]", monocle },
 	{ "|M|", centeredmaster },
 	{ ">M>", centeredfloatingmaster },
