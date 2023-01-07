@@ -234,6 +234,7 @@ static void         grabkeys(void);
 static void         incnmaster(const Arg* arg);
 static void         keypress(XEvent* e);
 static void         killclient(const Arg* arg);
+static void         layoutmenu(const Arg *arg);
 static void         manage(Window w, XWindowAttributes* wa);
 static void         mappingnotify(XEvent* e);
 static void         maprequest(XEvent* e);
@@ -410,10 +411,11 @@ static const Rule rules[] = {
 };
 // }}}
 // Layout(s) {{{
-static const float  mfact          = 0.50; /* factor of master area size [0.05..0.95] */
-static const int    nmaster        = 1;    /* number of clients in master area */
-static const int    resizehints    = 0;    /* 1 means respect size hints in tiled resizals */
-static const int    lockfullscreen = 0;    /* 1 will force focus on the fullscreen window */
+static const float  mfact           = 0.50; /* factor of master area size [0.05..0.95] */
+static const int    nmaster         = 1;    /* number of clients in master area */
+static const int    resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
+static const int    lockfullscreen  = 0;    /* 1 will force focus on the fullscreen window */
+static const char   *layoutmenu_cmd = "xmenu_dwmlayout";
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
@@ -512,6 +514,7 @@ static const Button buttons[] = {
 	/* click     event mask button   function        argument */
 	{ ClkLtSymbol,   0,      Button1, setlayout,      { 0 } },
 	{ ClkLtSymbol,   0,      Button2, setlayout,      { .v = &layouts[1] } },
+	{ ClkLtSymbol,   0,      Button3, layoutmenu,     { 0 } },
 	{ ClkLtSymbol,   0,      Button4, cyclelayout,    { .i = +1 } },
 	{ ClkLtSymbol,   0,      Button5, cyclelayout,    { .i = -1 } },
 	{ ClkWinTitle,   0,      Button2, zoom,           { 0 } },
