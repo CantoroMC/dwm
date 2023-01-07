@@ -100,6 +100,7 @@ enum {
 	ClkTagBar,
 	ClkLtSymbol,
 	ClkStatusText,
+	ClkButton,
 	ClkWinTitle,
 	ClkClientWin,
 	ClkRootWin,
@@ -416,6 +417,7 @@ static const int    nmaster         = 1;    /* number of clients in master area 
 static const int    resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
 static const int    lockfullscreen  = 0;    /* 1 will force focus on the fullscreen window */
 static const char   *layoutmenu_cmd = "xmenu_dwmlayout";
+static const char   buttonbar[]     = "";
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
@@ -509,9 +511,14 @@ static const Key keys[] = {
 // Mouse {{{
 // Click can be:
 //   ClkTagBar, ClkLtSymbol, ClkStatusText,
-//   ClkWinTitle, ClkClientWin, ClkRootWin
+//   ClkWinTitle, ClkClientWin, ClkRootWin, ClkButton
 static const Button buttons[] = {
 	/* click     event mask button   function        argument */
+	{ ClkButton,     0,      Button1, spawn,          SHCMD("xdg-xmenu") },
+	{ ClkButton,     0,      Button3, spawn,          SHCMD("xmenu-shutdown") },
+	{ ClkButton,     0,      Button2, spawn,          SHCMD("weather") },
+	{ ClkButton,     0,      Button4, spawn,          SHCMD("xbacklight -inc 5") },
+	{ ClkButton,     0,      Button5, spawn,          SHCMD("xbacklight -dec 5") },
 	{ ClkLtSymbol,   0,      Button1, setlayout,      { 0 } },
 	{ ClkLtSymbol,   0,      Button2, setlayout,      { .v = &layouts[1] } },
 	{ ClkLtSymbol,   0,      Button3, layoutmenu,     { 0 } },
