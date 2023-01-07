@@ -18,6 +18,8 @@
  *
  * To understand everything else, start reading main().
  */
+#ifndef DWM_H
+#define DWM_H
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
@@ -541,5 +543,7 @@ static const Button buttons[] = {
 };
 // }}}
 // }}}
+
+#endif /* ifndef DWM_H */
 
 // vim:fdm=marker
