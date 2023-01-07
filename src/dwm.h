@@ -184,6 +184,7 @@ static void     configurenotify(XEvent* e);
 static void     configurerequest(XEvent* e);
 static Monitor* createmon(void);
 static void     cyclelayout(const Arg *arg);
+static void     deck(Monitor *m);
 static void     destroynotify(XEvent* e);
 static void     detach(Client* c);
 static void     detachstack(Client* c);
@@ -370,6 +371,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
 	{ "TTT", bstack },
+	{ "[D]", deck },
 	{ "|+|", tatami },
 	{ "[M]", monocle },
 	{ "|M|", centeredmaster },
