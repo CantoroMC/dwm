@@ -171,6 +171,7 @@ static void     arrange(Monitor* m);
 static void     arrangemon(Monitor* m);
 static void     attach(Client* c);
 static void     attachstack(Client* c);
+static void     bstack(Monitor *m);
 static void     buttonpress(XEvent* e);
 static void     checkotherwm(void);
 static void     cleanup(void);
@@ -365,6 +366,7 @@ static const int    lockfullscreen = 0;    /* 1 will force focus on the fullscre
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
+	{ "TTT", bstack },
 	{ ">>=", NULL },
 	{ "[M]", monocle },
 	{ NULL,  NULL },
