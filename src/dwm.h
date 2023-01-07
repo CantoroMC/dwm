@@ -180,6 +180,7 @@ static void     configure(Client* c);
 static void     configurenotify(XEvent* e);
 static void     configurerequest(XEvent* e);
 static Monitor* createmon(void);
+static void     cyclelayout(const Arg *arg);
 static void     destroynotify(XEvent* e);
 static void     detach(Client* c);
 static void     detachstack(Client* c);
@@ -366,6 +367,7 @@ static const Layout layouts[] = {
 	{ "[]=", tile },
 	{ ">>=", NULL },
 	{ "[M]", monocle },
+	{ NULL,  NULL },
 };
 // }}}
 // Kbd {{{
@@ -400,20 +402,22 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask, XK_m, zoom,       { 0 } },
 	// }}}
 	// Surrounding Keys {{{
-	{ MODKEY,             XK_Delete,    spawn,      SHCMD("xmenu-shutdown") },
-	{ MODKEY|ShiftMask,   XK_Delete,    quit,       { 0 } },
-	{ MODKEY|ShiftMask,   XK_BackSpace, spawn,      SHCMD("loginctl lock-session") },
-	{ MODKEY,             XK_Return,    spawn,      SHCMD(TERMINAL) },
-	{ MODKEY|ShiftMask,   XK_Return,    spawn,      SHCMD("st") },
-	{ MODKEY|ControlMask, XK_Return,    spawn,      SHCMD("tabbed -c -r 2 st -w ''") },
-	{ MODKEY,             XK_period,    incnmaster, { .i = -1 } },
-	{ MODKEY,             XK_comma,     incnmaster, { .i = +1 } },
-	{ MODKEY,             XK_space,     setlayout,  { .v = &layouts[0] } },
-	{ MODKEY|ShiftMask,   XK_space,     setlayout,  { .v = &layouts[1] } },
-	{ MODKEY|ControlMask, XK_space,     setlayout,  { .v = &layouts[2] } },
-	{ MODKEY,             XK_Print,     spawn,      SHCMD("scrotwp -fd") },
-	{ MODKEY|ShiftMask,   XK_Print,     spawn,      SHCMD("scrotwp -sd") },
-	{ MODKEY|ControlMask, XK_Print,     spawn,      SHCMD("scrotwp -wd") },
+	{ MODKEY,             XK_Tab,       cyclelayout, { .i = +1 } },
+	{ MODKEY|ShiftMask,   XK_Tab,       cyclelayout, { .i = -1 } },
+	{ MODKEY,             XK_Delete,    spawn,       SHCMD("xmenu-shutdown") },
+	{ MODKEY|ShiftMask,   XK_Delete,    quit,        { 0 } },
+	{ MODKEY|ShiftMask,   XK_BackSpace, spawn,       SHCMD("loginctl lock-session") },
+	{ MODKEY,             XK_Return,    spawn,       SHCMD(TERMINAL) },
+	{ MODKEY|ShiftMask,   XK_Return,    spawn,       SHCMD("st") },
+	{ MODKEY|ControlMask, XK_Return,    spawn,       SHCMD("tabbed -c -r 2 st -w ''") },
+	{ MODKEY,             XK_period,    incnmaster,  { .i = -1 } },
+	{ MODKEY,             XK_comma,     incnmaster,  { .i = +1 } },
+	{ MODKEY,             XK_space,     setlayout,   { .v = &layouts[0] } },
+	{ MODKEY|ShiftMask,   XK_space,     setlayout,   { .v = &layouts[1] } },
+	{ MODKEY|ControlMask, XK_space,     setlayout,   { .v = &layouts[2] } },
+	{ MODKEY,             XK_Print,     spawn,       SHCMD("scrotwp -fd") },
+	{ MODKEY|ShiftMask,   XK_Print,     spawn,       SHCMD("scrotwp -sd") },
+	{ MODKEY|ControlMask, XK_Print,     spawn,       SHCMD("scrotwp -wd") },
 	// }}}
 	// Arrows {{{
 	// }}}
@@ -451,6 +455,8 @@ static const Button buttons[] = {
 	/* click     event mask button   function        argument */
 	{ ClkLtSymbol,   0,      Button1, setlayout,      { 0 } },
 	{ ClkLtSymbol,   0,      Button2, setlayout,      { .v = &layouts[1] } },
+	{ ClkLtSymbol,   0,      Button4, cyclelayout,    { .i = +1 } },
+	{ ClkLtSymbol,   0,      Button5, cyclelayout,    { .i = -1 } },
 	{ ClkWinTitle,   0,      Button2, zoom,           { 0 } },
 	{ ClkStatusText, 0,      Button1, spawn,          SHCMD(TERMINAL) },
 	{ ClkStatusText, 0,      Button2, spawn,          SHCMD(TERMINAL " -e pulsemixer") },
