@@ -78,7 +78,7 @@ enum {
 	NetWMIcon,
 	NetWMState,
 	NetWMCheck,
-   NetSystemTray,
+	NetSystemTray,
 	NetSystemTrayOP,
 	NetSystemTrayOrientation,
 	NetSystemTrayOrientationHorz,
@@ -93,7 +93,7 @@ enum {
 	Manager,
 	Xembed,
 	XembedInfo,
-	XLast 
+	XLast
 }; /* Xembed atoms */
 enum {
 	WMProtocols,
@@ -176,6 +176,7 @@ struct Monitor {
 	Client*       clients;
 	Client*       sel;
 	Client*       stack;
+	Client*       tagmarked[32];
 	Monitor*      next;
 	Window        barwin;
 	const Layout* lt[2];
@@ -230,6 +231,7 @@ static int          drawstatusbar(Monitor *m, int bh, char* text);
 static void         expose(XEvent* e);
 static void         focus(Client* c);
 static void         focusin(XEvent* e);
+static void         focusmaster(const Arg *arg);
 static void         focusmon(const Arg* arg);
 static void         focusstack(const Arg* arg);
 static void         freeicon(Client *c);
@@ -469,6 +471,7 @@ static const Key keys[] = {
 	{ MODKEY,           XK_j, focusstack, { .i = +1 } },
 	{ MODKEY,           XK_h, setmfact,   { .f = -0.05 } },
 	{ MODKEY,           XK_l, setmfact,   { .f = +0.05 } },
+	{ MODKEY,           XK_m, focusmaster,{ 0 } },
 	{ MODKEY|ShiftMask, XK_m, zoom,       { 0 } },
 	// }}}
 	// Surrounding Keys {{{
