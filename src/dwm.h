@@ -402,8 +402,8 @@ static const char* fonts[]  = {
 static const char  std_fg[]  = "#dcd7ba";
 static const char  std_bg[]  = "#1f1f28";
 static const char  std_bd[]  = "#1f1f28";
-static const char  self_fg[] = "#c8c093";
-static const char  self_bg[] = "#2d4f67";
+static const char  self_fg[] = "#ff9e3b";
+static const char  self_bg[] = "#363646";
 static const char  self_bd[] = "#72a7bc";
 static const char* colors[][3] = {
 	//               fg         bg     border
