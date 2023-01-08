@@ -141,6 +141,8 @@ struct Client {
 	int          bw, oldbw;
 	unsigned int tags;
 	int          isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+	int          floatborderpx;
+	int          hasfloatbw;
 	unsigned int icw, ich; Picture icon;
 	Client*      next;
 	Client*      snext;
@@ -189,6 +191,8 @@ typedef struct {
 	unsigned int tags;
 	int          isfloating;
 	int          monitor;
+	int          floatx, floaty, floatw, floath;
+	int          floatborderpx;
 } Rule;
 
 typedef struct Systray Systray;
@@ -392,34 +396,34 @@ static const Rule rules[] = {
 	 * WM_CLASS(STRING) = instance, class
 	 * WM_NAME(STRING) = title
 	 */
-	// class                    instance        title       tags mask  isfloating   monitor
-	{ NULL,                       NULL,     "Event Tester",     0,       1,         -1 },
-	{ NULL,                       NULL,     "lstopo",           0,       1,         -1 },
-	{ NULL,                       NULL,     "weatherreport",    0,       1,         -1 },
-	{ NULL,                       "pop-up", NULL,               0,       1,         -1 },
-	{ "Arandr",                   NULL,     NULL,               0,       1,         -1 },
-	{ "Avahi-discover",           NULL,     NULL,               0,       1,         -1 },
-	{ "Blueberry.py",             NULL,     NULL,               0,       1,         -1 },
-	{ "Bssh",                     NULL,     NULL,               0,       1,         -1 },
-	{ "Bvnc",                     NULL,     NULL,               0,       1,         -1 },
-	{ "CMakeSetup",               NULL,     NULL,               0,       1,         -1 },
-	{ "Display",                  NULL,     "ImageMagick: ",    0,       1,         -1 },
-	{ "feh",                      NULL,     NULL,               0,       1,         -1 },
-	{ "Hardinfo",                 NULL,     NULL,               0,       1,         -1 },
-	{ "Lxappearance",             NULL,     NULL,               0,       1,         -1 },
-	{ "matplotlib",               NULL,     NULL,               0,       1,         -1 },
-	{ "Nibbler",                  NULL,     NULL,               0,       1,         -1 },
-	{ "Parcellite",               NULL,     NULL,               0,       1,         -1 },
-	{ "Pavucontrol",              NULL,     NULL,               0,       1,         -1 },
-	{ "qv4l2",                    NULL,     NULL,               0,       1,         -1 },
-	{ "qvidcap",                  NULL,     NULL,               0,       1,         -1 },
-	{ "System-config-printer.py", NULL,     NULL,               0,       1,         -1 },
-	{ "Sxiv",                     NULL,     NULL,               0,       1,         -1 },
-	{ "Transmission-gtk",         NULL,     NULL,               1 << 8,  1,         -1 },
-	{ "Xboard",                   NULL,     NULL,               0,       1,         -1 },
-	{ "Xmessage",                 NULL,     NULL,               0,       1,         -1 },
-	{ "Yad",                      NULL,     NULL,               0,       1,         -1 },
-	{ "Yad-icon-browser",         NULL,     NULL,               0,       1,         -1 },
+	// class | instance | title | tags mask | isfloat | monitor | x | y | w | h | floatborderpx
+	{ NULL,                       NULL,     "Event Tester",  0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ NULL,                       NULL,     "lstopo",        0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ NULL,                       NULL,     "weatherreport", 0,      1, -1, 460,  165, 925, 700, -1 },
+	{ NULL,                       "pop-up", NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Arandr",                   NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1 },
+	{ "Avahi-discover",           NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Blueberry.py",             NULL,     NULL,            0,      1, -1, 661,  308, 613, 445, -1 },
+	{ "Bssh",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Bvnc",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "CMakeSetup",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Display",                  NULL,     "ImageMagick: ", 0,      1, -1, 610,  320, 640, 480,  0 },
+	{ "feh",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Hardinfo",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Lxappearance",             NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "matplotlib",               NULL,     NULL,            0,      1, -1, 610,  320, 640, 480,  0 },
+	{ "Nibbler",                  NULL,     NULL,            0,      1, -1, 1850, 220, 745, 640, -1 },
+	{ "Parcellite",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Pavucontrol",              NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1 },
+	{ "qv4l2",                    NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "qvidcap",                  NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "System-config-printer.py", NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Sxiv",                     NULL,     NULL,            0,      1, -1, 570,  265, 800, 600, -1 },
+	{ "Transmission-gtk",         NULL,     NULL,            1 << 8, 1, -1, 660,  210, 600, 500,  0 },
+	{ "Xboard",                   NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Xmessage",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Yad",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	{ "Yad-icon-browser",         NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
 };
 // }}}
 // Layout(s) {{{
