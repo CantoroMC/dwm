@@ -144,6 +144,7 @@ struct Client {
 	int          floatborderpx;
 	int          hasfloatbw;
 	unsigned int icw, ich; Picture icon;
+	char         scratchkey;
 	Client*      next;
 	Client*      snext;
 	Monitor*     mon;
@@ -193,6 +194,7 @@ typedef struct {
 	int          monitor;
 	int          floatx, floaty, floatw, floath;
 	int          floatborderpx;
+	const char   scratchkey;
 } Rule;
 
 typedef struct Systray Systray;
@@ -204,9 +206,8 @@ struct Systray {
 // }}}
 
 // Functions {{{
-static void applyrules(Client* c);
-static int
-applysizehints(Client* c, int* x, int* y, int* w, int* h, int interact);
+static void         applyrules(Client* c);
+static int          applysizehints(Client* c, int* x, int* y, int* w, int* h, int interact);
 static void         arrange(Monitor* m);
 static void         arrangemon(Monitor* m);
 static void         attach(Client* c);
@@ -284,6 +285,7 @@ static void         seturgent(Client* c, int urg);
 static void         showhide(Client* c);
 static void         sigchld(int unused);
 static void         spawn(const Arg* arg);
+static void         spawnscratch(const Arg *arg);
 static Monitor*     systraytomon(Monitor *m);
 static void         tag(const Arg* arg);
 static void         tagmon(const Arg* arg);
@@ -291,6 +293,7 @@ static void         tatami(Monitor *m);
 static void         tile(Monitor* m);
 static void         togglebar(const Arg* arg);
 static void         togglefloating(const Arg* arg);
+static void         togglescratch(const Arg *arg);
 static void         toggletag(const Arg* arg);
 static void         toggleview(const Arg* arg);
 static void         unfocus(Client* c, int setfocus);
@@ -357,7 +360,7 @@ static Systray* systray = NULL;
 
 // Configuration {{{
 // Appearance {{{
-static const unsigned int borderpx = 1;
+static const unsigned int borderpx = 2;
 static const unsigned int snap = 22;
 static const int showbar = 1;
 static const int topbar = 1;
@@ -396,34 +399,39 @@ static const Rule rules[] = {
 	 * WM_CLASS(STRING) = instance, class
 	 * WM_NAME(STRING) = title
 	 */
-	// class | instance | title | tags mask | isfloat | monitor | x | y | w | h | floatborderpx
-	{ NULL,                       NULL,     "Event Tester",  0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ NULL,                       NULL,     "lstopo",        0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ NULL,                       NULL,     "weatherreport", 0,      1, -1, 460,  165, 925, 700, -1 },
-	{ NULL,                       "pop-up", NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Arandr",                   NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1 },
-	{ "Avahi-discover",           NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Blueberry.py",             NULL,     NULL,            0,      1, -1, 661,  308, 613, 445, -1 },
-	{ "Bssh",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Bvnc",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "CMakeSetup",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Display",                  NULL,     "ImageMagick: ", 0,      1, -1, 610,  320, 640, 480,  0 },
-	{ "feh",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Hardinfo",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Lxappearance",             NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "matplotlib",               NULL,     NULL,            0,      1, -1, 610,  320, 640, 480,  0 },
-	{ "Nibbler",                  NULL,     NULL,            0,      1, -1, 1850, 220, 745, 640, -1 },
-	{ "Parcellite",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Pavucontrol",              NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1 },
-	{ "qv4l2",                    NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "qvidcap",                  NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "System-config-printer.py", NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Sxiv",                     NULL,     NULL,            0,      1, -1, 570,  265, 800, 600, -1 },
-	{ "Transmission-gtk",         NULL,     NULL,            1 << 8, 1, -1, 660,  210, 600, 500,  0 },
-	{ "Xboard",                   NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Xmessage",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Yad",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
-	{ "Yad-icon-browser",         NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1 },
+	// class | instance | title | tags mask | isfloat | monitor | x | y | w | h | floatborderpx | scratchkey
+	{ NULL,                       NULL,     "Event Tester",  0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ NULL,                       NULL,     "lstopo",        0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ NULL,                       NULL,     "weatherreport", 0,      1, -1, 460,  165, 925, 700, -1, 0 },
+	{ NULL,                       "pop-up", NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Arandr",                   NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1, 0 },
+	{ "Avahi-discover",           NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Blueberry.py",             NULL,     NULL,            0,      1, -1, 661,  308, 613, 445, -1, 0 },
+	{ "Bssh",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Bvnc",                     NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "CMakeSetup",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Display",                  NULL,     "ImageMagick: ", 0,      1, -1, 610,  320, 640, 480,  0, 0 },
+	{ "feh",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Hardinfo",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Lxappearance",             NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "matplotlib",               NULL,     NULL,            0,      1, -1, 610,  320, 640, 480,  0, 0 },
+	{ "Nibbler",                  NULL,     NULL,            0,      1, -1, 1850, 220, 745, 640, -1, 0 },
+	{ "Parcellite",               NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Pavucontrol",              NULL,     NULL,            0,      1, -1, 700,  340, 500, 400, -1, 0 },
+	{ "qv4l2",                    NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "qvidcap",                  NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "System-config-printer.py", NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Sxiv",                     NULL,     NULL,            0,      1, -1, 570,  265, 800, 600, -1, 0 },
+	{ "Transmission-gtk",         NULL,     NULL,            1 << 8, 1, -1, 660,  210, 600, 500,  0, 0 },
+	{ "Xboard",                   NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Xmessage",                 NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Yad",                      NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	{ "Yad-icon-browser",         NULL,     NULL,            0,      1, -1,  -1,   -1,  -1,  -1, -1, 0 },
+	// Named scratchpads
+	{ NULL,                       NULL,     "yakuake",       0,      1, -1, 460, 240, 980, 600, -1, 'y' },
+	{ NULL,                       NULL,     "kimux",         0,      1, -1, 460, 240, 980, 600, -1, 'x' },
+	{ NULL,                       NULL,     "cmus",          0,      1, -1, 460, 240, 980, 600, -1, 'm' },
+	{ NULL,                       NULL,     "ncmpcpp",       0,      1, -1, 460, 240, 980, 600, -1, 'n' },
 };
 // }}}
 // Layout(s) {{{
@@ -448,38 +456,48 @@ static const Layout layouts[] = {
 };
 // }}}
 // Kbd {{{
+// Named scratchpad
+static const char *yakuakecmd[] = { "y", TERMINAL, "--title", "yakuake", NULL };
+static const char *kimuxcmd[]   = { "x", TERMINAL, "--title", "kimux",   "-e", "tmux", NULL };
+static const char *cmuscmd[]    = { "m", TERMINAL, "--title", "cmus",    "-e", "cmus", NULL };
+static const char *ncmpcppcmd[] = { "n", TERMINAL, "--title", "ncmpcpp", "-e", "ncmpcpp", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	// Left Side {{{
-	{ MODKEY|ShiftMask,   XK_q, killclient,     { 0 } },
-	{ MODKEY,             XK_w, focusmon,       { .i = -1 } },
-	{ MODKEY,             XK_e, focusmon,       { .i = +1 } },
-	{ MODKEY|ShiftMask,   XK_w, tagmon,         { .i = -1 } },
-	{ MODKEY|ShiftMask,   XK_e, tagmon,         { .i = +1 } },
-	{ MODKEY,             XK_r, view,           { 0 } },
-	{ MODKEY|ShiftMask,   XK_r, setlayout,      { 0 } },
-	{ MODKEY,             XK_t, togglefloating, { 0 } },
-	{ MODKEY,             XK_a, spawn,          SHCMD(TERMINAL) },
-	{ MODKEY|ShiftMask,   XK_a, spawn,          SHCMD("st") },
-	{ MODKEY|ControlMask, XK_a, spawn,          SHCMD("tabbed -c -r 2 st -w ''") },
-	{ MODKEY,             XK_d, spawn,          SHCMD("tabbed -c zathura -e") },
-	{ MODKEY|ShiftMask,   XK_d, spawn,          SHCMD("evince") },
-	{ MODKEY,             XK_f, spawn,          SHCMD("google-chrome-stable") },
-	{ MODKEY|ShiftMask,   XK_f, spawn,          SHCMD("vieb") },
-	{ MODKEY,             XK_b, togglebar,      { 0 } },
+	{ MODKEY|ShiftMask,             XK_q, killclient,     { 0 } },
+	{ MODKEY,                       XK_w, focusmon,       { .i = -1 } },
+	{ MODKEY,                       XK_e, focusmon,       { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_w, tagmon,         { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_e, tagmon,         { .i = +1 } },
+	{ MODKEY,                       XK_r, view,           { 0 } },
+	{ MODKEY|ShiftMask,             XK_r, setlayout,      { 0 } },
+	{ MODKEY,                       XK_t, togglefloating, { 0 } },
+	{ MODKEY,                       XK_a, spawn,          SHCMD(TERMINAL) },
+	{ MODKEY|ShiftMask,             XK_a, spawn,          SHCMD("st") },
+	{ MODKEY|ControlMask,           XK_a, spawn,          SHCMD("tabbed -c -r 2 st -w ''") },
+	{ MODKEY,                       XK_d, spawn,          SHCMD("tabbed -c zathura -e") },
+	{ MODKEY|ShiftMask,             XK_d, spawn,          SHCMD("evince") },
+	{ MODKEY,                       XK_f, spawn,          SHCMD("google-chrome-stable") },
+	{ MODKEY|ShiftMask,             XK_f, spawn,          SHCMD("vieb") },
+	{ MODKEY|ShiftMask|ControlMask, XK_x, togglescratch,  { .v = kimuxcmd } },
+	{ MODKEY,                       XK_b, togglebar,      { 0 } },
 	// }}}
 	// Right Side {{{
-	{ MODKEY,           XK_u, spawn,      SHCMD("dmenu_run") },
-	{ MODKEY|ShiftMask, XK_u, spawn,      SHCMD("rofi -modi drun,run,combi -show combi") },
-	{ MODKEY,           XK_o, spawn,      SHCMD("code") },
-	{ MODKEY,           XK_k, focusstack, { .i = -1 } },
-	{ MODKEY,           XK_j, focusstack, { .i = +1 } },
-	{ MODKEY|ShiftMask, XK_k, movestack,  { .i = -1 } },
-	{ MODKEY|ShiftMask, XK_j, movestack,  { .i = +1 } },
-	{ MODKEY,           XK_h, setmfact,   { .f = -0.05 } },
-	{ MODKEY,           XK_l, setmfact,   { .f = +0.05 } },
-	{ MODKEY,           XK_m, focusmaster,{ 0 } },
-	{ MODKEY|ShiftMask, XK_m, zoom,       { 0 } },
+	{ MODKEY,                       XK_y, togglescratch,  { .v = yakuakecmd } },
+	{ MODKEY,                       XK_u, spawn,          SHCMD("dmenu_run") },
+	{ MODKEY|ShiftMask,             XK_u, spawn,          SHCMD("rofi -modi drun,run,combi -show combi") },
+	{ MODKEY,                       XK_o, spawn,          SHCMD("code") },
+	{ MODKEY,                       XK_k, focusstack,     { .i = -1 } },
+	{ MODKEY,                       XK_j, focusstack,     { .i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k, movestack,      { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j, movestack,      { .i = +1 } },
+	{ MODKEY,                       XK_h, setmfact,       { .f = -0.05 } },
+	{ MODKEY,                       XK_l, setmfact,       { .f = +0.05 } },
+	{ MODKEY|ShiftMask|ControlMask, XK_n, togglescratch,  { .v = ncmpcppcmd } },
+	{ MODKEY,                       XK_m, focusmaster,    { 0 } },
+	{ MODKEY|ShiftMask,             XK_m, zoom,           { 0 } },
+	{ MODKEY|ShiftMask|ControlMask, XK_m, togglescratch,  { .v = cmuscmd } },
 	// }}}
 	// Surrounding Keys {{{
 	{ MODKEY,             XK_Tab,       cyclelayout, { .i = +1 } },
