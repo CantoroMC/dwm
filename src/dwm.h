@@ -252,6 +252,7 @@ static void         mappingnotify(XEvent* e);
 static void         maprequest(XEvent* e);
 static void         monocle(Monitor* m);
 static void         movemouse(const Arg* arg);
+static void         movestack(const Arg* arg);
 static Client*      nexttiled(Client* c);
 static void         pop(Client* c);
 static uint32_t     prealpha(uint32_t p);
@@ -469,6 +470,8 @@ static const Key keys[] = {
 	{ MODKEY,           XK_o, spawn,      SHCMD("code") },
 	{ MODKEY,           XK_k, focusstack, { .i = -1 } },
 	{ MODKEY,           XK_j, focusstack, { .i = +1 } },
+	{ MODKEY|ShiftMask, XK_k, movestack,  { .i = -1 } },
+	{ MODKEY|ShiftMask, XK_j, movestack,  { .i = +1 } },
 	{ MODKEY,           XK_h, setmfact,   { .f = -0.05 } },
 	{ MODKEY,           XK_l, setmfact,   { .f = +0.05 } },
 	{ MODKEY,           XK_m, focusmaster,{ 0 } },
@@ -537,6 +540,8 @@ static const Button buttons[] = {
 	{ ClkLtSymbol,   0,      Button4, cyclelayout,    { .i = +1 } },
 	{ ClkLtSymbol,   0,      Button5, cyclelayout,    { .i = -1 } },
 	{ ClkWinTitle,   0,      Button2, zoom,           { 0 } },
+	{ ClkWinTitle,   0,      Button4, movestack,      { .i = +1 } },
+	{ ClkWinTitle,   0,      Button5, movestack,      { .i = -1 } },
 	{ ClkStatusText, 0,      Button1, spawn,          SHCMD(TERMINAL) },
 	{ ClkStatusText, 0,      Button2, spawn,          SHCMD(TERMINAL " -e pulsemixer") },
 	{ ClkStatusText, 0,      Button3, spawn,          SHCMD(TERMINAL " -e htop") },
