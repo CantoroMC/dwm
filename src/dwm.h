@@ -43,6 +43,7 @@
 #define ICONSPACING 5
 #define ISVISIBLE(C) ((C->tags & C->mon->tagset[C->mon->seltags]))
 #define LENGTH(X) (sizeof X / sizeof X[0])
+#define MAXTABS 50
 #define MODKEY Mod4Mask
 #define MOUSEMASK (BUTTONMASK | PointerMotionMask)
 #define SHCMD(cmd) { .v = (const char*[]) { "/bin/sh", "-c", cmd, NULL } }
@@ -104,6 +105,7 @@ enum {
 }; /* default atoms */
 enum {
 	ClkTagBar,
+	ClkTabBar,
 	ClkLtSymbol,
 	ClkStatusText,
 	ClkButton,
@@ -112,6 +114,12 @@ enum {
 	ClkRootWin,
 	ClkLast
 }; /* clicks */
+enum showtab_modes {
+	showtab_never,
+	showtab_auto,
+	showtab_nmodes,
+	showtab_always
+}; // Tab bar display modes
 // }}}
 // Unions {{{
 typedef union {
@@ -170,19 +178,25 @@ struct Monitor {
 	int           nmaster;
 	int           num;
 	int           by;             /* bar geometry */
+	int           ty;             /* tab bar geometry */
 	int           mx, my, mw, mh; /* screen size */
 	int           wx, wy, ww, wh; /* window area  */
 	unsigned int  seltags;
 	unsigned int  sellt;
 	unsigned int  tagset[2];
 	int           showbar;
+	int           showtab;
 	int           topbar;
+	int           toptab;
 	Client*       clients;
 	Client*       sel;
 	Client*       stack;
 	Client*       tagmarked[32];
 	Monitor*      next;
 	Window        barwin;
+	Window        tabwin;
+	int           ntabs;
+	int           tab_widths[MAXTABS];
 	const Layout* lt[2];
 };
 
@@ -222,6 +236,7 @@ static void         checkotherwm(void);
 static void         cleanup(void);
 static void         cleanupmon(Monitor* mon);
 static void         clientmessage(XEvent* e);
+static int          cmpint(const void *p1, const void *p2);
 static void         configure(Client* c);
 static void         configurenotify(XEvent* e);
 static void         configurerequest(XEvent* e);
@@ -234,6 +249,8 @@ static void         detachstack(Client* c);
 static Monitor*     dirtomon(int dir);
 static void         drawbar(Monitor* m);
 static void         drawbars(void);
+static void         drawtab(Monitor *m);
+static void         drawtabs(void);
 static int          drawstatusbar(Monitor *m, int bh, char* text);
 static void         expose(XEvent* e);
 static void         focus(Client* c);
@@ -241,6 +258,7 @@ static void         focusin(XEvent* e);
 static void         focusmaster(const Arg *arg);
 static void         focusmon(const Arg* arg);
 static void         focusstack(const Arg* arg);
+static void         focuswin(const Arg* arg);
 static void         freeicon(Client *c);
 static Atom         getatomprop(Client* c, Atom prop);
 static Picture      geticonprop(Window w, unsigned int *icw, unsigned int *ich);
@@ -289,6 +307,7 @@ static void         sigchld(int unused);
 static void         spawn(const Arg* arg);
 static void         spawnscratch(const Arg *arg);
 static Monitor*     systraytomon(Monitor *m);
+static void         tabmode(const Arg *arg);
 static void         tag(const Arg* arg);
 static void         tagmon(const Arg* arg);
 static void         tatami(Monitor *m);
@@ -331,6 +350,7 @@ static char       stext[1024];
 static int        screen;
 static int        sw, sh; /* X display screen geometry width, height */
 static int        bh;     /* bar height */
+static int        th = 0; /* tab bar geometry */
 static int        lrpad;  /* sum of left and right padding for text */
 static int (*xerrorxlib)(Display*, XErrorEvent*);
 static unsigned int numlockmask            = 0;
@@ -444,6 +464,9 @@ static const int    lockfullscreen  = 0;    /* 1 will force focus on the fullscr
 static const int    focusonwheel    = 0;
 static const char   *layoutmenu_cmd = "xmenu_dwmlayout";
 static const char   buttonbar[]     = "";
+static const int    showtab         = showtab_auto;
+static const int    toptab          = True;
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=", tile },
@@ -484,6 +507,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f, spawn,          SHCMD("vieb") },
 	{ MODKEY|ShiftMask|ControlMask, XK_x, togglescratch,  { .v = kimuxcmd } },
 	{ MODKEY,                       XK_b, togglebar,      { 0 } },
+	{ MODKEY|ShiftMask,             XK_b, tabmode,        { -1 } },
 	// }}}
 	// Right Side {{{
 	{ MODKEY,                       XK_y, togglescratch,  { .v = yakuakecmd } },
@@ -550,7 +574,8 @@ static const Key keys[] = {
 // Mouse {{{
 // Click can be:
 //   ClkTagBar, ClkLtSymbol, ClkStatusText,
-//   ClkWinTitle, ClkClientWin, ClkRootWin, ClkButton
+//   ClkWinTitle, ClkClientWin, ClkRootWin,
+//   ClkButton, ClkTabBar
 static const Button buttons[] = {
 	/* click     event mask button   function        argument */
 	{ ClkButton,     0,      Button1, spawn,          SHCMD("xdg-xmenu") },
@@ -578,6 +603,8 @@ static const Button buttons[] = {
 	{ ClkTagBar,     0,      Button3, toggleview,     { 0 } },
 	{ ClkTagBar,     MODKEY, Button1, tag,            { 0 } },
 	{ ClkTagBar,     MODKEY, Button3, toggletag,      { 0 } },
+	{ ClkTabBar,     0,      Button1, focuswin,       {0} },
+	{ ClkTabBar,     0,      Button2, togglefloating, {0} },
 };
 // }}}
 // }}}
