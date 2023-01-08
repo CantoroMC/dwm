@@ -136,6 +136,7 @@ struct Client {
 	char         name[256];
 	float        mina, maxa;
 	int          x, y, w, h;
+	int          sfx, sfy, sfw, sfh;
 	int          oldx, oldy, oldw, oldh;
 	int          basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
 	int          bw, oldbw;
