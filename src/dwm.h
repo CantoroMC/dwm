@@ -227,7 +227,6 @@ static Monitor*     dirtomon(int dir);
 static void         drawbar(Monitor* m);
 static void         drawbars(void);
 static int          drawstatusbar(Monitor *m, int bh, char* text);
-static void         enternotify(XEvent* e);
 static void         expose(XEvent* e);
 static void         focus(Client* c);
 static void         focusin(XEvent* e);
@@ -250,7 +249,6 @@ static void         manage(Window w, XWindowAttributes* wa);
 static void         mappingnotify(XEvent* e);
 static void         maprequest(XEvent* e);
 static void         monocle(Monitor* m);
-static void         motionnotify(XEvent* e);
 static void         movemouse(const Arg* arg);
 static Client*      nexttiled(Client* c);
 static void         pop(Client* c);
@@ -330,13 +328,11 @@ static void (*handler[LASTEvent])(XEvent*) = {
 	[ConfigureRequest] = configurerequest,
 	[ConfigureNotify]  = configurenotify,
 	[DestroyNotify]    = destroynotify,
-	[EnterNotify]      = enternotify,
 	[Expose]           = expose,
 	[FocusIn]          = focusin,
 	[KeyPress]         = keypress,
 	[MappingNotify]    = mappingnotify,
 	[MapRequest]       = maprequest,
-	[MotionNotify]     = motionnotify,
 	[PropertyNotify]   = propertynotify,
 	[ResizeRequest] = resizerequest,
 	[UnmapNotify]      = unmapnotify
@@ -428,6 +424,7 @@ static const float  mfact           = 0.50; /* factor of master area size [0.05.
 static const int    nmaster         = 1;    /* number of clients in master area */
 static const int    resizehints     = 0;    /* 1 means respect size hints in tiled resizals */
 static const int    lockfullscreen  = 0;    /* 1 will force focus on the fullscreen window */
+static const int    focusonwheel    = 0;
 static const char   *layoutmenu_cmd = "xmenu_dwmlayout";
 static const char   buttonbar[]     = "";
 static const Layout layouts[] = {
