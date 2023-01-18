@@ -537,7 +537,7 @@ static const Key keys[] = {
 	{ MODKEY,             XK_period,    incnmaster,  { .i = -1 } },
 	{ MODKEY,             XK_comma,     incnmaster,  { .i = +1 } },
 	{ MODKEY,             XK_space,     setlayout,   { .v = &layouts[0] } },
-	{ MODKEY|ShiftMask,   XK_space,     setlayout,   { .v = &layouts[1] } },
+	{ MODKEY|ShiftMask,   XK_space,     setlayout,   { .v = &layouts[4] } },
 	{ MODKEY|ControlMask, XK_space,     setlayout,   { .v = &layouts[2] } },
 	{ MODKEY,             XK_Print,     spawn,       SHCMD("scrotwp -fd") },
 	{ MODKEY|ShiftMask,   XK_Print,     spawn,       SHCMD("scrotwp -sd") },
