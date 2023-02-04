@@ -399,12 +399,12 @@ static const char* fonts[]  = {
 	"FiraCode Nerd Font Book:size=8.0",
 };
 // Colors
-static const char  std_fg[]  = "#dcd7ba";
-static const char  std_bg[]  = "#1f1f28";
-static const char  std_bd[]  = "#1f1f28";
-static const char  self_fg[] = "#ff9e3b";
-static const char  self_bg[] = "#363646";
-static const char  self_bd[] = "#72a7bc";
+static const char  std_fg[]  = "#fdf6e2";
+static const char  std_bg[]  = "#073642";
+static const char  std_bd[]  = "#002b36";
+static const char  self_fg[] = "#eee8d5";
+static const char  self_bg[] = "#073642";
+static const char  self_bd[] = "#268bd2";
 static const char* colors[][3] = {
 	//               fg         bg     border
 	[SchemeNorm] = { std_fg,  std_bg,  std_bd },
